@@ -23,10 +23,11 @@ priority so they can be discussed, selected, and implemented gradually.
 
 ## Priority 2
 
-- [ ] Improve mobile ergonomics.
-  - Test on real phones in portrait and landscape orientation.
-  - Check tap target sizes for board navigation and icon buttons.
-  - Consider an optional compact mode for very small screens.
+- [x] Improve mobile ergonomics.
+  - Tested with real phone screenshots in portrait and landscape orientation.
+  - Adjusted tap target sizes, mobile spacing, and board navigation layout.
+  - Improved horizontal scrolling and sticky first column behavior for the
+    planning board.
 
 - [ ] Add an optional code legend.
   - Keep cell input free-form with a maximum of three characters.
