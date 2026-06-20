@@ -58,7 +58,8 @@ docker compose down -v
 
 ## Board Behavior
 
-- The board shows one work week at a time, Monday to Friday.
+- The board shows one week at a time. Each group can use either a 5 day week
+  (Monday to Friday) or a 7 day week (Monday to Sunday).
 - Cells autosave and allow any characters, maximum three characters.
 - Everyone in a group can edit all visible rows in that group.
 - Hidden users do not appear on the board but keep their login and saved data.

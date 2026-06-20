@@ -24,7 +24,7 @@ function selected_team_id(array $user): int
 
 function team_or_404(int $teamId): array
 {
-    $stmt = db()->prepare('SELECT id, name FROM planner_teams WHERE id = ?');
+    $stmt = db()->prepare('SELECT id, name, week_length FROM planner_teams WHERE id = ?');
     $stmt->execute([$teamId]);
     $team = $stmt->fetch();
 
@@ -62,5 +62,5 @@ function team_members(int $teamId): array
 
 function all_teams(): array
 {
-    return db()->query('SELECT id, name FROM planner_teams ORDER BY name')->fetchAll();
+    return db()->query('SELECT id, name, week_length FROM planner_teams ORDER BY name')->fetchAll();
 }

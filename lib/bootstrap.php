@@ -99,6 +99,16 @@ function monday_for_date(?string $date): DateTimeImmutable
     return $base->modify('monday this week');
 }
 
+function normalize_week_length(int $weekLength): int
+{
+    return $weekLength === 7 ? 7 : 5;
+}
+
+function planner_week_days(int $weekLength): array
+{
+    return array_slice(PLANNER_WEEK_DAYS, 0, normalize_week_length($weekLength), true);
+}
+
 function normalize_cell_value(string $value): string
 {
     $value = trim($value);

@@ -15,6 +15,8 @@ const PLANNER_WEEK_DAYS = [
     3 => 'WED',
     4 => 'THU',
     5 => 'FRI',
+    6 => 'SAT',
+    7 => 'SUN',
 ];
 
 $plannerLocalConfig = [];

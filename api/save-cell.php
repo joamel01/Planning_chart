@@ -26,7 +26,15 @@ if (!can_access_team($user, $teamId)) {
     json_response(['ok' => false, 'message' => 'You cannot access this group.'], 403);
 }
 
-if ($day < 1 || $day > 5) {
+$stmt = db()->prepare('SELECT week_length FROM planner_teams WHERE id = ?');
+$stmt->execute([$teamId]);
+$team = $stmt->fetch();
+if (!$team) {
+    json_response(['ok' => false, 'message' => 'The group was not found.'], 404);
+}
+
+$weekLength = normalize_week_length((int) $team['week_length']);
+if ($day < 1 || $day > $weekLength) {
     json_response(['ok' => false, 'message' => 'Invalid weekday.'], 422);
 }
 

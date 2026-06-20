@@ -25,6 +25,7 @@ if (!can_access_team($user, $teamId)) {
 }
 
 $team = team_or_404($teamId);
+$weekDays = planner_week_days((int) $team['week_length']);
 $monday = monday_for_date($_GET['week'] ?? null);
 $previousWeek = $monday->modify('-7 days')->format('Y-m-d');
 $nextWeek = $monday->modify('+7 days')->format('Y-m-d');
@@ -113,7 +114,7 @@ render_header('Planning Board', $user, 'board-page');
                 <thead>
                     <tr>
                         <th><?= e($weekLabel) ?></th>
-                        <?php foreach (PLANNER_WEEK_DAYS as $dayNumber => $dayName): ?>
+                        <?php foreach ($weekDays as $dayNumber => $dayName): ?>
                             <th>
                                 <span><?= e($dayName) ?></span>
                                 <small><?= e($monday->modify('+' . ($dayNumber - 1) . ' days')->format('j/n')) ?></small>
@@ -125,7 +126,7 @@ render_header('Planning Board', $user, 'board-page');
                 <?php foreach ($members as $member): ?>
                     <tr>
                         <th><?= e($member['name']) ?></th>
-                        <?php foreach (PLANNER_WEEK_DAYS as $dayNumber => $dayName): ?>
+                        <?php foreach ($weekDays as $dayNumber => $dayName): ?>
                             <?php $value = $entries[(int) $member['id']][$dayNumber] ?? ''; ?>
                             <td>
                                 <input

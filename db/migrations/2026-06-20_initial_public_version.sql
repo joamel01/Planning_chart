@@ -1,9 +1,11 @@
 CREATE TABLE IF NOT EXISTS planner_teams (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
+    week_length TINYINT UNSIGNED NOT NULL DEFAULT 5,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    UNIQUE KEY uq_planner_teams_name (name)
+    UNIQUE KEY uq_planner_teams_name (name),
+    CONSTRAINT chk_planner_teams_week_length CHECK (week_length IN (5, 7))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS planner_users (
@@ -53,7 +55,7 @@ CREATE TABLE IF NOT EXISTS planner_plan_entries (
     CONSTRAINT fk_planner_plan_updated_by
         FOREIGN KEY (updated_by) REFERENCES planner_users(id)
         ON DELETE SET NULL,
-    CONSTRAINT chk_planner_plan_day CHECK (day_of_week BETWEEN 1 AND 5)
+    CONSTRAINT chk_planner_plan_day CHECK (day_of_week BETWEEN 1 AND 7)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS planner_audit_log (
