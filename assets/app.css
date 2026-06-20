@@ -209,6 +209,7 @@ button:disabled {
 }
 
 .panel {
+    max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -448,7 +449,9 @@ a:focus {
 }
 
 .board-scroll {
+    max-width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .planning-board {
@@ -482,11 +485,22 @@ a:focus {
     font-weight: 400;
 }
 
-.planning-board tbody th {
+.planning-board th:first-child {
     position: sticky;
     left: 0;
-    z-index: 2;
     width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    box-shadow: 2px 0 0 var(--line);
+}
+
+.planning-board thead th:first-child {
+    z-index: 4;
+    background: var(--surface-2);
+}
+
+.planning-board tbody th {
+    z-index: 3;
     padding: 0 10px;
     background: var(--surface);
     text-align: left;
@@ -613,6 +627,7 @@ a:focus {
     }
 
     .data-table {
+        width: max-content;
         min-width: 640px;
     }
 
@@ -640,8 +655,16 @@ a:focus {
 
     .planning-board tbody th {
         width: 112px;
+        min-width: 112px;
+        max-width: 112px;
         padding: 0 8px;
         font-size: 16px;
+    }
+
+    .planning-board th:first-child {
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
     }
 
     .cell-input {
