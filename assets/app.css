@@ -21,6 +21,11 @@
     box-sizing: border-box;
 }
 
+html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     margin: 0;
     background: var(--bg);
@@ -158,6 +163,11 @@ button:disabled {
     width: min(420px, 100%);
 }
 
+.panel {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .narrow-panel {
     max-width: 560px;
 }
@@ -166,6 +176,14 @@ h1,
 h2 {
     margin: 0 0 12px;
     line-height: 1.15;
+}
+
+h1 {
+    font-size: clamp(34px, 5vw, 48px);
+}
+
+h2 {
+    font-size: clamp(24px, 3vw, 34px);
 }
 
 .muted {
@@ -395,6 +413,10 @@ a:focus {
     border-collapse: collapse;
 }
 
+.planning-board.board-days-7 {
+    min-width: 820px;
+}
+
 .planning-board th,
 .planning-board td {
     border: 1px solid var(--line);
@@ -475,9 +497,28 @@ a:focus {
 }
 
 @media (max-width: 760px) {
+    .page {
+        width: min(100% - 20px, 1180px);
+        margin: 16px auto 40px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .muted {
+        font-size: 18px;
+    }
+
     .section-head {
         align-items: stretch;
         flex-direction: column;
+        gap: 10px;
+        margin-bottom: 14px;
     }
 
     .nav,
@@ -491,10 +532,99 @@ a:focus {
 
     .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .stat-card {
+        min-height: 76px;
+        padding: 12px;
+    }
+
+    .stat-card strong {
+        font-size: 26px;
     }
 
     .inline-form {
         flex-direction: column;
+    }
+
+    .flash {
+        margin-bottom: 12px;
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+
+    .admin-actions {
+        gap: 8px;
+    }
+
+    .admin-action,
+    .button,
+    button,
+    .nav a,
+    .toolbar a.icon-link,
+    .toolbar button.icon-link {
+        min-height: 46px;
+    }
+
+    .data-table {
+        min-width: 640px;
+    }
+
+    .board-actions {
+        margin: -2px 0 18px;
+    }
+
+    .planning-board {
+        min-width: 560px;
+    }
+
+    .planning-board.board-days-7 {
+        min-width: 760px;
+    }
+
+    .planning-board th,
+    .planning-board td,
+    .cell-input {
+        height: 44px;
+    }
+
+    .planning-board thead th {
+        font-size: 16px;
+    }
+
+    .planning-board tbody th {
+        width: 112px;
+        padding: 0 8px;
+        font-size: 16px;
+    }
+
+    .cell-input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .page {
+        width: min(100% - 16px, 1180px);
+        margin-top: 12px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .muted {
+        font-size: 16px;
+    }
+
+    .nav a.icon-link,
+    .toolbar a.icon-link,
+    .toolbar button.icon-link {
+        width: 46px;
+        min-width: 46px;
+        height: 46px;
+        min-height: 46px;
     }
 }
 

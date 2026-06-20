@@ -110,7 +110,7 @@ render_header('Planning Board', $user, 'board-page');
         </div>
     <?php else: ?>
         <div class="board-scroll">
-            <table class="planning-board">
+            <table class="planning-board board-days-<?= count($weekDays) ?>">
                 <thead>
                     <tr>
                         <th><?= e($weekLabel) ?></th>
