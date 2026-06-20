@@ -57,6 +57,7 @@ render_header('Planning Board', $user, 'board-page');
 
 <section class="board-actions print-hidden">
     <div class="toolbar">
+        <?php render_nav($user); ?>
         <?php if ($user['role'] === 'central_admin' && count($teams) > 1): ?>
             <form method="get" class="team-picker">
                 <input type="hidden" name="week" value="<?= e($monday->format('Y-m-d')) ?>">
@@ -80,7 +81,6 @@ render_header('Planning Board', $user, 'board-page');
                 <path d="m9 18 6-6-6-6"></path>
             </svg>
         </a>
-        <?php render_nav($user); ?>
         <button class="icon-link" type="button" onclick="window.print()" aria-label="Print or save as PDF" title="Print or save as PDF">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="M6 9V3h12v6"></path>

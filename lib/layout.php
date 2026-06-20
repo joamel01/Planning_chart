@@ -46,33 +46,49 @@ function render_footer(): void
     <?php
 }
 
-function render_nav(array $user): void
+function render_nav(array $user, array $sectionLinks = []): void
 {
     $currentPage = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    $menuLinks = $sectionLinks;
+    $menuHrefs = array_column($menuLinks, 'href');
+
+    if ($currentPage !== 'team.php' && !in_array(path_to('team.php'), $menuHrefs, true)) {
+        $menuLinks[] = [
+            'href' => path_to('team.php'),
+            'label' => 'People',
+        ];
+    }
+
+    if ($user['role'] === 'central_admin' && $currentPage !== 'admin.php' && !in_array(path_to('admin.php'), $menuHrefs, true)) {
+        $menuLinks[] = [
+            'href' => path_to('admin.php'),
+            'label' => 'Admin',
+        ];
+    }
+
+    $menuLinks[] = [
+        'href' => path_to('logout.php'),
+        'label' => 'Log out',
+    ];
     ?>
     <nav class="nav">
+        <details class="menu">
+            <summary class="icon-link menu-button" aria-label="Menu" title="Menu">
+                <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                    <path d="M6 5v14"></path>
+                    <path d="M12 5v14"></path>
+                    <path d="M18 5v14"></path>
+                </svg>
+            </summary>
+            <div class="menu-panel">
+                <?php foreach ($menuLinks as $link): ?>
+                    <a class="<?= !empty($link['current']) ? 'current' : '' ?>" href="<?= e($link['href']) ?>"><?= e($link['label']) ?></a>
+                <?php endforeach; ?>
+            </div>
+        </details>
         <?php if ($currentPage !== 'board.php'): ?>
             <a href="<?= e(path_to('board.php')) ?>">Board</a>
         <?php endif; ?>
-        <?php if ($currentPage !== 'team.php'): ?>
-            <a class="icon-link" href="<?= e(path_to('team.php')) ?>" aria-label="People" title="People">
-                <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                    <path d="M4.5 20a7.5 7.5 0 0 1 15 0"></path>
-                </svg>
-            </a>
-        <?php endif; ?>
-        <?php if ($user['role'] === 'central_admin' && $currentPage !== 'admin.php'): ?>
-            <a href="<?= e(path_to('admin.php')) ?>">Admin</a>
-        <?php endif; ?>
-        <a class="icon-link" href="<?= e(path_to('logout.php')) ?>" aria-label="Log out" title="Log out">
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-                <circle cx="7.5" cy="14.5" r="3.5"></circle>
-                <path d="M10.3 12.1 20 2.5"></path>
-                <path d="M15.5 6.5 18 9"></path>
-                <path d="M13.2 8.8 15 10.6"></path>
-            </svg>
-        </a>
     </nav>
     <?php
 }

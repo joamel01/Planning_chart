@@ -5,8 +5,24 @@ require_once __DIR__ . '/layout.php';
 
 function render_admin_actions(): void
 {
+    $links = admin_action_links();
+    ?>
+    <nav class="admin-actions" aria-label="Admin actions">
+        <?php foreach ($links as $link): ?>
+            <?php if (!empty($link['current'])): ?>
+                <span class="admin-action current"><?= e($link['label']) ?></span>
+            <?php else: ?>
+                <a class="admin-action" href="<?= e($link['href']) ?>"><?= e($link['label']) ?></a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </nav>
+    <?php
+}
+
+function admin_action_links(): array
+{
     $currentPage = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
-    $links = [
+    $pages = [
         'admin.php' => 'Overview',
         'admin_groups.php' => 'Groups',
         'admin_new_user.php' => 'New user',
@@ -15,17 +31,17 @@ function render_admin_actions(): void
         'admin_export.php' => 'Export',
         'admin_update.php' => 'Updates',
     ];
-    ?>
-    <nav class="admin-actions" aria-label="Admin actions">
-        <?php foreach ($links as $href => $label): ?>
-            <?php if ($currentPage === $href): ?>
-                <span class="admin-action current"><?= e($label) ?></span>
-            <?php else: ?>
-                <a class="admin-action" href="<?= e(path_to($href)) ?>"><?= e($label) ?></a>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </nav>
-    <?php
+
+    $links = [];
+    foreach ($pages as $href => $label) {
+        $links[] = [
+            'href' => path_to($href),
+            'label' => $label,
+            'current' => $currentPage === $href,
+        ];
+    }
+
+    return $links;
 }
 
 function render_admin_header(array $user, string $title, string $subtitle): void
@@ -37,8 +53,7 @@ function render_admin_header(array $user, string $title, string $subtitle): void
             <p class="muted"><?= e($subtitle) ?></p>
         </div>
         <div class="header-actions">
-            <?php render_admin_actions(); ?>
-            <?php render_nav($user); ?>
+            <?php render_nav($user, admin_action_links()); ?>
         </div>
     </section>
     <?php
