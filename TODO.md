@@ -5,19 +5,18 @@ priority so they can be discussed, selected, and implemented gradually.
 
 ## Priority 1
 
-- [ ] Add installation safety checks.
+- [x] Add installation safety checks.
   - Show a clear warning if `setup_admin.php` still exists after the first
     central admin has been created.
-  - Consider blocking normal use or showing a persistent admin banner until the
-    file is removed.
+  - Show a persistent central admin banner until the file is removed.
 
-- [ ] Add database version and migration handling.
+- [x] Add database version and migration handling.
   - Add a table such as `planner_schema_versions`.
   - Track which migration files have been applied.
   - Provide a simple update page or documented update command for existing
     installations.
 
-- [ ] Add backup and export guidance.
+- [x] Add backup and export guidance.
   - Document how to back up the database for normal web server installations.
   - Document how to back up and restore the Docker database volume.
   - Consider adding CSV export for central admins.

@@ -6,6 +6,7 @@ require_once __DIR__ . '/auth.php';
 function render_header(string $title, ?array $user = null, string $bodyClass = ''): void
 {
     $flashes = take_flashes();
+    $setupAdminPath = __DIR__ . '/../setup_admin.php';
     ?>
 <!doctype html>
 <html lang="en">
@@ -25,6 +26,11 @@ function render_header(string $title, ?array $user = null, string $bodyClass = '
 </head>
 <body class="<?= e($bodyClass) ?>">
 <main class="page">
+    <?php if ($user && $user['role'] === 'central_admin' && is_file($setupAdminPath)): ?>
+        <div class="flash warning">
+            Security warning: <code>setup_admin.php</code> still exists. Delete it from the public server after installation.
+        </div>
+    <?php endif; ?>
     <?php foreach ($flashes as $flash): ?>
         <div class="flash <?= e($flash['type']) ?>"><?= e($flash['message']) ?></div>
     <?php endforeach; ?>

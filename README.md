@@ -54,7 +54,7 @@ PhpMyAdmin unless you want to inspect the database manually.
 7. Open `/planner-en/setup_admin.php` in your browser.
 8. Create the first central admin account.
 9. Delete `setup_admin.php` from the public server after the first admin has
-   been created.
+   been created. Central admins will see a warning while this file exists.
 10. Log in at `/planner-en/login.php`.
 
 After login, the central admin can create groups, choose 5 or 7 day weeks, add
@@ -84,7 +84,8 @@ http://localhost:8080/login.php
 ```
 
 If this Docker image will be published or used on a public server, remove
-`setup_admin.php` after the first admin has been created.
+`setup_admin.php` after the first admin has been created. Central admins will
+see a warning while this file exists.
 
 The Docker setup uses these default database settings internally:
 
@@ -113,8 +114,15 @@ database.
 
 ## Updating An Existing Installation
 
-For a normal web server installation, upload the changed PHP/CSS files and run
-any new SQL files in `db/migrations` that were added since your current version.
+For a normal web server installation:
+
+1. Back up the database before updating.
+2. Upload the changed application files.
+3. Log in as a central admin.
+4. Open the **Updates** admin page.
+5. If migration tracking has not been initialized yet, click **Initialize
+   migration tracking**.
+6. If pending migrations are shown later, click **Apply pending migrations**.
 
 For Docker, pull or copy the new files and rebuild the app container:
 
@@ -123,8 +131,36 @@ docker compose up -d --build app
 ```
 
 If a new migration was added after your Docker database volume was created, run
-that migration against the Docker database or recreate the volume with
-`docker compose down -v`.
+the update from the **Updates** admin page, or recreate the volume with
+`docker compose down -v` if this is only a disposable test installation.
+
+## Backup And Export
+
+Use database backups when you need a restore point. CSV exports are useful for
+reviewing data, but they are not a complete replacement for a database backup.
+
+For normal web server installations:
+
+1. Open your hosting provider's database tool, for example PhpMyAdmin.
+2. Select the Work Planner database.
+3. Use **Export** to download a full SQL backup.
+4. Store the backup securely.
+
+For Docker installations, create a SQL backup with:
+
+```sh
+docker compose exec -T db mariadb-dump -uplanning_chart -pplanning_chart_password planning_chart > planning-chart-backup.sql
+```
+
+Restore a Docker SQL backup into an empty database with:
+
+```sh
+docker compose exec -T db mariadb -uplanning_chart -pplanning_chart_password planning_chart < planning-chart-backup.sql
+```
+
+Central admins can also open the **Export** admin page and download CSV files
+for active users, archived users, and plan entries. These CSV files do not
+include password hashes.
 
 ## Recovery
 
@@ -189,6 +225,8 @@ codes.
 - Database access uses PDO prepared statements.
 - Forms and autosave requests use CSRF tokens.
 - Session cookies are scoped to `PLANNER_BASE_PATH`.
+- Central admins are warned if `setup_admin.php` still exists after
+  installation.
 
 ## Roadmap
 

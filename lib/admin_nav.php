@@ -12,6 +12,8 @@ function render_admin_actions(): void
         'admin_new_user.php' => 'New user',
         'admin_passwords.php' => 'Passwords',
         'admin_archive.php' => 'Archive',
+        'admin_export.php' => 'Export',
+        'admin_update.php' => 'Updates',
     ];
     ?>
     <nav class="admin-actions" aria-label="Admin actions">
