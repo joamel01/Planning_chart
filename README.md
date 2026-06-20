@@ -66,6 +66,20 @@ docker compose down -v
 - Archived users cannot log in and their board data is marked archived.
 - PDF output uses the browser print/save-as-PDF dialog.
 
+## Suggested Code Conventions
+
+The board intentionally allows any code up to three characters, so each
+organization can use its own conventions. A simple starting point could be:
+
+- `J`: working from home.
+- Three-letter location codes for working at another location.
+- `X`: absent for the full day.
+- `X/`: absent in the morning.
+- `/X`: absent in the afternoon.
+
+These examples are suggestions only. The application does not enforce specific
+codes.
+
 ## Security
 
 - Passwords are stored with `password_hash`.
