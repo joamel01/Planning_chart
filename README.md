@@ -189,3 +189,7 @@ codes.
 - Database access uses PDO prepared statements.
 - Forms and autosave requests use CSRF tokens.
 - Session cookies are scoped to `PLANNER_BASE_PATH`.
+
+## Roadmap
+
+See `TODO.md` for planned improvements and future release hardening.
