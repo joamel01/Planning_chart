@@ -1,0 +1,124 @@
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/lib/admin_nav.php';
+
+$user = require_admin();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
+    $userId = (int) ($_POST['user_id'] ?? 0);
+
+    try {
+        if ($userId === (int) $user['id']) {
+            throw new InvalidArgumentException('You cannot archive your own account.');
+        }
+
+        $pdo = db();
+        $pdo->beginTransaction();
+
+        $stmt = $pdo->prepare(
+            "SELECT id, team_id
+             FROM planner_users
+             WHERE id = ? AND role IN ('group_admin', 'user') AND archived_at IS NULL
+             FOR UPDATE"
+        );
+        $stmt->execute([$userId]);
+        $target = $stmt->fetch();
+        if (!$target) {
+            throw new InvalidArgumentException('The user could not be found.');
+        }
+
+        $stmt = $pdo->prepare(
+            'UPDATE planner_users
+             SET is_active = 0, is_board_visible = 0, archived_at = CURRENT_TIMESTAMP, archived_by = ?
+             WHERE id = ?'
+        );
+        $stmt->execute([(int) $user['id'], $userId]);
+
+        $stmt = $pdo->prepare(
+            'UPDATE planner_plan_entries
+             SET archived_at = CURRENT_TIMESTAMP
+             WHERE user_id = ? AND archived_at IS NULL'
+        );
+        $stmt->execute([$userId]);
+
+        $stmt = $pdo->prepare(
+            'INSERT INTO planner_audit_log (actor_user_id, team_id, target_user_id, action, details)
+             VALUES (?, ?, ?, ?, ?)'
+        );
+        $stmt->execute([(int) $user['id'], (int) $target['team_id'], $userId, 'archive_user', 'Archived by central admin']);
+
+        $pdo->commit();
+        flash('success', 'User and user data archived.');
+    } catch (Throwable $exception) {
+        if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        flash('error', $exception->getMessage());
+    }
+
+    redirect_to('admin_archive.php');
+}
+
+$activeUsers = db()->query(
+    "SELECT u.id, u.name, u.username, u.role, t.name AS team_name
+     FROM planner_users u
+     LEFT JOIN planner_teams t ON t.id = u.team_id
+     WHERE u.role IN ('group_admin', 'user') AND u.archived_at IS NULL
+     ORDER BY t.name, u.sort_order, u.name"
+)->fetchAll();
+
+$archivedUsers = db()->query(
+    "SELECT u.name, u.username, u.role, u.archived_at, t.name AS team_name
+     FROM planner_users u
+     LEFT JOIN planner_teams t ON t.id = u.team_id
+     WHERE u.role IN ('group_admin', 'user') AND u.archived_at IS NOT NULL
+     ORDER BY u.archived_at DESC, u.name"
+)->fetchAll();
+
+render_header('Archive', $user);
+render_admin_header($user, 'Archive', 'Archive users and their board data.');
+?>
+<section class="panel">
+    <h2>Archive Active User</h2>
+    <table class="data-table">
+        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Group</th><th></th></tr></thead>
+        <tbody>
+        <?php foreach ($activeUsers as $managedUser): ?>
+            <tr>
+                <td><?= e($managedUser['name']) ?></td>
+                <td><?= e($managedUser['username']) ?></td>
+                <td><?= e(role_label($managedUser['role'])) ?></td>
+                <td><?= e($managedUser['team_name']) ?></td>
+                <td class="actions">
+                    <form method="post" onsubmit="return confirm('Archive this user and their board data?');">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
+                        <button class="danger" type="submit">Archive</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
+<section class="panel">
+    <h2>Archived Users</h2>
+    <table class="data-table">
+        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Group</th><th>Archived at</th></tr></thead>
+        <tbody>
+        <?php foreach ($archivedUsers as $managedUser): ?>
+            <tr>
+                <td><?= e($managedUser['name']) ?></td>
+                <td><?= e($managedUser['username']) ?></td>
+                <td><?= e(role_label($managedUser['role'])) ?></td>
+                <td><?= e($managedUser['team_name']) ?></td>
+                <td><?= e($managedUser['archived_at']) ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+<?php render_footer(); ?>

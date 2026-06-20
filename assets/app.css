@@ -144,6 +144,10 @@ button.secondary-action {
     width: min(420px, 100%);
 }
 
+.narrow-panel {
+    max-width: 560px;
+}
+
 h1,
 h2 {
     margin: 0 0 12px;
@@ -169,6 +173,60 @@ h2 {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: flex-end;
+}
+
+.admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+}
+
+.admin-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--accent-strong);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.admin-action.current {
+    background: var(--surface-2);
+    border-color: var(--line);
+    color: var(--muted);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    display: grid;
+    gap: 8px;
+    min-height: 92px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+}
+
+.stat-card span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.stat-card strong {
+    font-size: 30px;
+    line-height: 1;
 }
 
 .board-actions {
@@ -202,6 +260,11 @@ h2 {
     display: flex;
     gap: 8px;
     margin-bottom: 18px;
+}
+
+.inline-form.compact {
+    align-items: center;
+    margin-bottom: 0;
 }
 
 label {
@@ -401,6 +464,10 @@ a:focus {
 
     .grid.two {
         grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .inline-form {
