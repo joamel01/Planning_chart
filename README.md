@@ -149,7 +149,12 @@ that migration against the Docker database or recreate the volume with
 The board intentionally allows any code up to three characters, so each
 organization can use its own conventions. A simple starting point could be:
 
-- `J`: working from home.
+- `WFH`: working from home.
+- `FLX`: flex leave.
+- `OFF`: off duty.
+- `PHY`: physical training.
+- `AM`: morning only or morning absence.
+- `PM`: afternoon only or afternoon absence.
 - Three-letter location codes for working at another location.
 - `X`: absent for the full day.
 - `X/`: absent in the morning.
