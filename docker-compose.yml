@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      PLANNER_DB_HOST: db
+      PLANNER_DB_NAME: planning_chart
+      PLANNER_DB_USER: planning_chart
+      PLANNER_DB_PASS: planning_chart_password
+      PLANNER_BASE_PATH: /
+      PLANNER_SESSION_NAME: PLANNING_CHART_SESSION
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: root_password
+      MARIADB_DATABASE: planning_chart
+      MARIADB_USER: planning_chart
+      MARIADB_PASSWORD: planning_chart_password
+    volumes:
+      - planning-chart-db:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  planning-chart-db:

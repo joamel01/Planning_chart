@@ -20,6 +20,35 @@ Standalone PHP 8.3/MariaDB weekly planning board.
 4. Open `/planner-en/setup_admin.php` and create the first central admin.
 5. Remove `setup_admin.php` after installation.
 
+## Run With Docker
+
+Start the application and database:
+
+```sh
+docker compose up -d --build
+```
+
+Open:
+
+```text
+http://localhost:8080/setup_admin.php
+```
+
+Create the first central admin, then remove `setup_admin.php` before publishing the
+container image or deploying publicly.
+
+Stop the stack:
+
+```sh
+docker compose down
+```
+
+Remove the local database volume:
+
+```sh
+docker compose down -v
+```
+
 ## Recovery
 
 1. Set a temporary long value in `PLANNER_RECOVERY_KEY` in `config.php`.

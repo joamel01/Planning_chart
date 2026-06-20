@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../config.php';
 
-session_name(PLANNER_SESSION_NAME);
+$basePath = planner_config('PLANNER_BASE_PATH', 'PLANNER_BASE_PATH', PLANNER_BASE_PATH);
+
+session_name(planner_config('PLANNER_SESSION_NAME', 'PLANNER_SESSION_NAME', PLANNER_SESSION_NAME));
 session_set_cookie_params([
     'lifetime' => 0,
-    'path' => PLANNER_BASE_PATH,
+    'path' => $basePath === '' ? '/' : $basePath,
     'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
     'httponly' => true,
     'samesite' => 'Lax',
@@ -46,7 +48,8 @@ function e(?string $value): string
 
 function path_to(string $path = ''): string
 {
-    return rtrim(PLANNER_BASE_PATH, '/') . '/' . ltrim($path, '/');
+    $basePath = planner_config('PLANNER_BASE_PATH', 'PLANNER_BASE_PATH', PLANNER_BASE_PATH);
+    return rtrim($basePath, '/') . '/' . ltrim($path, '/');
 }
 
 function redirect_to(string $path): never
