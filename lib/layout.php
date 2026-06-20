@@ -12,7 +12,15 @@ function render_header(string $title, ?array $user = null, string $bodyClass = '
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#00ABE4">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Work Planner">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title><?= e($title) ?> - Work Planner</title>
+    <link rel="manifest" href="<?= e(path_to('manifest.php')) ?>">
+    <link rel="icon" href="<?= e(path_to('assets/app-icon.svg')) ?>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<?= e(path_to('assets/app-icon.svg')) ?>">
     <link rel="stylesheet" href="<?= e(path_to('assets/app.css')) ?>">
 </head>
 <body class="<?= e($bodyClass) ?>">

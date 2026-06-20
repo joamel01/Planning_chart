@@ -144,6 +144,26 @@ that migration against the Docker database or recreate the volume with
 - Archived users cannot log in and their board data is marked archived.
 - PDF output uses the browser print/save-as-PDF dialog.
 
+## Mobile Use
+
+The application is designed to be useful first on mobile phones, while still
+supporting tablets, laptops, and desktop screens.
+
+The board works in both portrait and landscape orientation on a phone. Landscape
+orientation usually gives the best planning experience because more columns fit
+on screen at the same time. Portrait orientation is still supported with
+horizontal scrolling.
+
+For the best phone experience, add the site to the phone home screen and open it
+like a web app:
+
+- iPhone/iPad Safari: open the site, tap **Share**, then **Add to Home Screen**.
+- Android Chrome: open the site, tap the menu, then **Add to Home screen** or
+  **Install app**.
+
+The app includes web app metadata so it can open in standalone mode when the
+browser and operating system support it.
+
 ## Suggested Code Conventions
 
 The board intentionally allows any code up to three characters, so each
