@@ -159,8 +159,8 @@ docker compose exec -T db mariadb -uplanning_chart -pplanning_chart_password pla
 ```
 
 Central admins can also open the **Export** admin page and download CSV files
-for active users, archived users, and plan entries. These CSV files do not
-include password hashes.
+for one group week, active users, archived users, and plan entries. These CSV
+files do not include password hashes.
 
 ## Recovery
 

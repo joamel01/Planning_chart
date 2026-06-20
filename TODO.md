@@ -49,7 +49,7 @@ priority so they can be discussed, selected, and implemented gradually.
   - Cover board autosave validation.
   - Cover hidden and archived users.
 
-- [ ] Add data export features.
+- [x] Add data export features.
   - Export a group week as CSV.
   - Export users and archived users for central admins.
   - Keep exports free of sensitive password data.
