@@ -53,7 +53,8 @@ function render_admin_header(array $user, string $title, string $subtitle): void
             <p class="muted"><?= e($subtitle) ?></p>
         </div>
         <div class="header-actions">
-            <?php render_nav($user, admin_action_links()); ?>
+            <?php render_action_menu(admin_action_links(), 'Admin menu'); ?>
+            <?php render_nav($user); ?>
         </div>
     </section>
     <?php

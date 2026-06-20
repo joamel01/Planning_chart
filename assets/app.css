@@ -63,7 +63,7 @@ button {
 }
 
 .nav > a,
-.nav summary.icon-link,
+.menu summary.icon-link,
 .toolbar a.icon-link,
 .toolbar button.icon-link {
     display: inline-flex;
@@ -85,7 +85,7 @@ button {
 }
 
 .nav > a.icon-link,
-.nav summary.icon-link,
+.menu summary.icon-link,
 .toolbar a.icon-link,
 .toolbar button.icon-link {
     width: 48px;
@@ -159,7 +159,7 @@ button {
 button:hover,
 .button:hover,
 .nav > a:hover,
-.nav summary.icon-link:hover,
+.menu summary.icon-link:hover,
 .toolbar a.icon-link:hover,
 .toolbar button.icon-link:hover {
     border-color: var(--accent-strong);
@@ -664,7 +664,7 @@ a:focus {
     }
 
     .nav > a.icon-link,
-    .nav summary.icon-link,
+    .menu summary.icon-link,
     .toolbar a.icon-link,
     .toolbar button.icon-link {
         width: 46px;

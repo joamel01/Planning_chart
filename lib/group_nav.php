@@ -74,7 +74,8 @@ function render_group_header(array $user, array $team, int $teamId, bool $canMan
                     </select>
                 </form>
             <?php endif; ?>
-            <?php render_nav($user, group_action_links($user, $teamId, $canManageGroup)); ?>
+            <?php render_action_menu(group_action_links($user, $teamId, $canManageGroup), 'Group menu'); ?>
+            <?php render_nav($user); ?>
         </div>
     </section>
     <?php
