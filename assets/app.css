@@ -1,15 +1,20 @@
 :root {
-    --bg: #f5f7f8;
+    --bg: #e9f1fa;
     --surface: #ffffff;
-    --surface-2: #edf2f4;
-    --text: #162026;
-    --muted: #5c6a72;
-    --line: #d9e0e4;
-    --accent: #0f766e;
-    --accent-strong: #0b5f59;
-    --danger: #b42318;
-    --ok: #16784d;
-    --focus: #f2b705;
+    --surface-2: #d8ecf8;
+    --surface-3: #f5fbff;
+    --text: #123243;
+    --muted: #587386;
+    --line: #b9ddf0;
+    --accent: #00abe4;
+    --accent-strong: #007faf;
+    --accent-soft: #c8edfb;
+    --danger: #b93832;
+    --danger-soft: #ffeceb;
+    --ok: #0b765a;
+    --ok-soft: #e3f8f1;
+    --warning-soft: #fff7d8;
+    --focus: #7adcfb;
 }
 
 * {
@@ -45,7 +50,7 @@ button {
     border: 1px solid var(--accent);
     border-radius: 6px;
     background: var(--accent);
-    color: #fff;
+    color: var(--surface);
     font: inherit;
     font-weight: 700;
     text-decoration: none;
@@ -108,6 +113,8 @@ button:hover,
 .toolbar a.icon-link:hover,
 .toolbar button.icon-link:hover {
     border-color: var(--accent-strong);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
 }
 
 button.danger {
@@ -280,7 +287,7 @@ select {
     border: 1px solid var(--line);
     border-radius: 6px;
     padding: 8px 10px;
-    background: #fff;
+    background: var(--surface);
     color: var(--text);
     font: inherit;
 }
@@ -302,13 +309,13 @@ a:focus {
 }
 
 .flash.success {
-    border-color: #9fd7bd;
-    background: #edf9f2;
+    border-color: #82d7c2;
+    background: var(--ok-soft);
 }
 
 .flash.error {
-    border-color: #f0afa9;
-    background: #fff0ee;
+    border-color: #efb3af;
+    background: var(--danger-soft);
 }
 
 .data-table {
@@ -405,7 +412,7 @@ a:focus {
 .planning-board tbody tr:nth-child(even) th,
 .planning-board tbody tr:nth-child(even) td,
 .planning-board tbody tr:nth-child(even) .cell-input {
-    background: #f0f4f5;
+    background: var(--surface-3);
 }
 
 .cell-input {
@@ -413,7 +420,7 @@ a:focus {
     height: 48px;
     border: 0;
     border-radius: 0;
-    background: #fff;
+    background: var(--surface);
     font-size: 18px;
     font-weight: 700;
     text-align: center;
@@ -421,15 +428,15 @@ a:focus {
 }
 
 .cell-input.is-saving {
-    background: #fff8d8;
+    background: var(--warning-soft);
 }
 
 .cell-input.is-saved {
-    background: #e7f7ee;
+    background: var(--ok-soft);
 }
 
 .cell-input.has-error {
-    background: #fff0ee;
+    background: var(--danger-soft);
     color: var(--danger);
 }
 
@@ -477,7 +484,7 @@ a:focus {
 
 @media print {
     body {
-        background: #fff;
+        background: var(--surface);
     }
 
     .topbar,
@@ -510,6 +517,6 @@ a:focus {
     }
 
     .cell-input {
-        color: #000;
+        color: var(--text);
     }
 }
