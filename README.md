@@ -8,50 +8,128 @@ Standalone PHP 8.3/MariaDB weekly planning board.
 - `group_admin`: creates users in their own group, hides/shows users on the board, sorts board rows.
 - `user`: changes their own password and edits all board cells in their group.
 
-## Installation
+## Requirements
 
-1. Import `db/schema.sql` in PhpMyAdmin.
-2. Configure database access with environment variables or copy `config.local.example.php` to `config.local.php`:
-   - `PLANNER_DB_HOST`
-   - `PLANNER_DB_NAME`
-   - `PLANNER_DB_USER`
-   - `PLANNER_DB_PASS`
-3. Upload the `planner-en` folder to the target site.
-4. Open `/planner-en/setup_admin.php` and create the first central admin.
-5. Remove `setup_admin.php` after installation.
+For a normal web server installation:
 
-## Run With Docker
+- PHP 8.3 or newer with PDO MySQL support.
+- MariaDB or MySQL.
+- Access to create/import database tables, for example with PhpMyAdmin.
+- A web server that can serve PHP files.
 
-Start the application and database:
+For a Docker installation:
+
+- Docker.
+- Docker Compose.
+
+## Choose An Installation Method
+
+Use one of these methods:
+
+- **Normal web server installation**: use this for shared hosting, a VPS, or a
+  web host such as one.com. You upload the PHP files yourself and use an
+  existing MariaDB/MySQL database.
+- **Docker installation**: use this for local testing, development, demos, or a
+  server where you want Docker to run both the PHP application and MariaDB.
+
+Do not mix the two methods unless you know exactly why. A normal web server
+installation does not need Docker. A Docker installation does not need
+PhpMyAdmin unless you want to inspect the database manually.
+
+## Normal Web Server Installation
+
+1. Create an empty MariaDB/MySQL database with your hosting provider.
+2. Import `db/schema.sql` into that database. In PhpMyAdmin this is usually done
+   with the **Import** tab.
+3. Copy `config.local.example.php` to `config.local.php`.
+4. Edit `config.local.php` and enter your database settings:
+   - `PLANNER_DB_HOST`: database host, often `localhost`.
+   - `PLANNER_DB_NAME`: database name.
+   - `PLANNER_DB_USER`: database username.
+   - `PLANNER_DB_PASS`: database password.
+5. If the application is installed in another folder than `/planner-en`, set
+   `PLANNER_BASE_PATH` in `config.local.php` or `config.php`.
+6. Upload all application files to the web server folder where the app should
+   run. The default path is `/planner-en`.
+7. Open `/planner-en/setup_admin.php` in your browser.
+8. Create the first central admin account.
+9. Delete `setup_admin.php` from the public server after the first admin has
+   been created.
+10. Log in at `/planner-en/login.php`.
+
+After login, the central admin can create groups, choose 5 or 7 day weeks, add
+group admins, add users, reset passwords, and archive users.
+
+## Docker Installation
+
+Use Docker when you want the included `docker-compose.yml` file to start both
+the PHP application and a MariaDB database.
+
+Start the application and database from this project folder:
 
 ```sh
 docker compose up -d --build
 ```
 
-Open:
+Then open:
 
 ```text
 http://localhost:8080/setup_admin.php
 ```
 
-Create the first central admin, then remove `setup_admin.php` before publishing the
-container image or deploying publicly.
+Create the first central admin account. After that, log in at:
 
-Stop the stack:
+```text
+http://localhost:8080/login.php
+```
+
+If this Docker image will be published or used on a public server, remove
+`setup_admin.php` after the first admin has been created.
+
+The Docker setup uses these default database settings internally:
+
+- database host: `db`
+- database name: `planning_chart`
+- database user: `planning_chart`
+- database password: `planning_chart_password`
+
+The Docker application runs at the root path `/`, so it uses
+`PLANNER_BASE_PATH=/` in `docker-compose.yml`.
+
+Stop the Docker stack:
 
 ```sh
 docker compose down
 ```
 
-Remove the local database volume:
+Remove the local Docker database volume and start with an empty database:
 
 ```sh
 docker compose down -v
 ```
 
+Only use `docker compose down -v` when you really want to delete the local test
+database.
+
+## Updating An Existing Installation
+
+For a normal web server installation, upload the changed PHP/CSS files and run
+any new SQL files in `db/migrations` that were added since your current version.
+
+For Docker, pull or copy the new files and rebuild the app container:
+
+```sh
+docker compose up -d --build app
+```
+
+If a new migration was added after your Docker database volume was created, run
+that migration against the Docker database or recreate the volume with
+`docker compose down -v`.
+
 ## Recovery
 
-1. Set a temporary long value in `PLANNER_RECOVERY_KEY` in `config.php`.
+1. Set a temporary long value in `PLANNER_RECOVERY_KEY` in `config.local.php`
+   or `config.php`.
 2. Open `/planner-en/admin_recovery.php?key=YOUR-KEY`.
 3. Reset the central admin password.
 4. Remove `admin_recovery.php` and clear `PLANNER_RECOVERY_KEY`.
