@@ -264,4 +264,5 @@ codes.
 
 ## Roadmap
 
-See `TODO.md` for planned improvements and future release hardening.
+Use GitHub Issues for public feature requests, bug reports, and roadmap
+discussion.
