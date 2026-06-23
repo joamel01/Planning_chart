@@ -94,6 +94,9 @@ The Docker setup uses these default database settings internally:
 - database user: `planning_chart`
 - database password: `planning_chart_password`
 
+These values are for local testing. Change the database passwords before using
+Docker on a public server.
+
 The Docker application runs at the root path `/`, so it uses
 `PLANNER_BASE_PATH=/` in `docker-compose.yml`.
 
@@ -111,6 +114,32 @@ docker compose down -v
 
 Only use `docker compose down -v` when you really want to delete the local test
 database.
+
+## Production Hardening Checklist
+
+Before publishing a normal web server installation:
+
+1. Use a private `config.local.php` with the real database settings.
+2. Make sure `config.local.php` is not committed to Git or exposed by the web
+   server.
+3. Create the first central admin with `setup_admin.php`.
+4. Remove `setup_admin.php` from the public server after setup.
+5. Keep `PLANNER_RECOVERY_KEY` empty during normal operation.
+6. Remove `admin_recovery.php` from the public server unless you are actively
+   recovering a central admin account.
+7. Open **Admin > Release** and resolve any warnings.
+8. Confirm the site is served over HTTPS so session cookies are marked secure.
+
+Before publishing a Docker installation:
+
+1. Replace `planning_chart_password` and `root_password` in
+   `docker-compose.yml` or provide production secrets another way.
+2. Set a production-safe `PLANNER_SESSION_NAME`.
+3. Keep `PLANNER_BASE_PATH=/` only when the app is served from the domain root.
+4. Create the first central admin, then remove or block `setup_admin.php`.
+5. Keep `PLANNER_RECOVERY_KEY` empty except during recovery.
+6. Put Docker behind HTTPS, for example with a reverse proxy.
+7. Open **Admin > Release** and resolve any warnings.
 
 ## Updating An Existing Installation
 
@@ -168,7 +197,8 @@ files do not include password hashes.
    or `config.php`.
 2. Open `/planner-en/admin_recovery.php?key=YOUR-KEY`.
 3. Reset the central admin password.
-4. Remove `admin_recovery.php` and clear `PLANNER_RECOVERY_KEY`.
+4. Remove `admin_recovery.php` from the public server and clear
+   `PLANNER_RECOVERY_KEY`.
 
 ## Board Behavior
 
@@ -227,6 +257,10 @@ codes.
 - Session cookies are scoped to `PLANNER_BASE_PATH`.
 - Central admins are warned if `setup_admin.php` still exists after
   installation.
+- Central admins can use **Admin > Release** to review public deployment checks.
+- The included `.htaccess` blocks common private files and folders when Apache
+  honors `.htaccess`.
+- The application sends browser security headers for PHP pages.
 
 ## Roadmap
 

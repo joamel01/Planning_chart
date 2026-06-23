@@ -30,6 +30,7 @@ function admin_action_links(): array
         'admin_archive.php' => 'Archive',
         'admin_export.php' => 'Export',
         'admin_update.php' => 'Updates',
+        'admin_release.php' => 'Release',
     ];
 
     $links = [];

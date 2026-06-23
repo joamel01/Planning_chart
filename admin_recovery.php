@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/lib/layout.php';
 
-if (PLANNER_RECOVERY_KEY === '') {
+$recoveryKey = planner_config('PLANNER_RECOVERY_KEY', 'PLANNER_RECOVERY_KEY', PLANNER_RECOVERY_KEY);
+
+if ($recoveryKey === '') {
     http_response_code(403);
     exit('Set PLANNER_RECOVERY_KEY in config.php first. Remove admin_recovery.php after recovery.');
 }
 
 $key = (string) ($_GET['key'] ?? $_POST['key'] ?? '');
-if (!hash_equals(PLANNER_RECOVERY_KEY, $key)) {
+if (!hash_equals($recoveryKey, $key)) {
     http_response_code(403);
     exit('Wrong recovery key.');
 }

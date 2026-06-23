@@ -411,6 +411,31 @@ a:focus {
     vertical-align: middle;
 }
 
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 76px;
+    min-height: 30px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status-badge.ok {
+    border-color: #82d7c2;
+    background: var(--ok-soft);
+    color: var(--ok);
+}
+
+.status-badge.warning {
+    border-color: #e4c85c;
+    background: var(--warning-soft);
+    color: var(--text);
+}
+
 .actions {
     text-align: right;
 }

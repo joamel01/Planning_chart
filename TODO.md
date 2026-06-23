@@ -54,7 +54,9 @@ priority so they can be discussed, selected, and implemented gradually.
   - Export users and archived users for central admins.
   - Keep exports free of sensitive password data.
 
-- [ ] Review public release hardening.
+- [x] Review public release hardening.
   - Check default configuration values.
   - Confirm no development-only files are required in production.
   - Review security headers and hosting assumptions.
+  - Added release checks, security headers, Apache file protection, and
+    production deployment guidance.

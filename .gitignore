@@ -1,2 +1,12 @@
 config.local.php
 screenshots/
+.env
+.env.*
+backups/
+exports/
+/*.csv
+/*.dump
+/*.sql
+*.bak
+*.backup
+*.tmp
