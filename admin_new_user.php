@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect_to('admin_new_user.php');
 }
 
-$teams = db()->query('SELECT id, name FROM planner_teams ORDER BY name')->fetchAll();
+$teams = db()->query('SELECT id, name FROM planner_teams WHERE archived_at IS NULL ORDER BY name')->fetchAll();
 
 render_header('New User', $user);
 render_admin_header($user, 'New User', 'Create group admins and users.');

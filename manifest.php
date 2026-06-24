@@ -13,8 +13,8 @@ echo json_encode([
     'start_url' => path_to('board.php'),
     'scope' => $basePath,
     'display' => 'standalone',
-    'background_color' => '#E9F1FA',
-    'theme_color' => '#00ABE4',
+    'background_color' => '#F6F6F3',
+    'theme_color' => '#102442',
     'orientation' => 'any',
     'icons' => [
         [

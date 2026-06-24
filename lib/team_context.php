@@ -11,20 +11,20 @@ function selected_team_id(array $user): int
 
     $requested = (int) ($_GET['team_id'] ?? $_POST['team_id'] ?? 0);
     if ($requested > 0) {
-        $stmt = db()->prepare('SELECT id FROM planner_teams WHERE id = ?');
+        $stmt = db()->prepare('SELECT id FROM planner_teams WHERE id = ? AND archived_at IS NULL');
         $stmt->execute([$requested]);
         if ($stmt->fetch()) {
             return $requested;
         }
     }
 
-    $first = db()->query('SELECT id FROM planner_teams ORDER BY name LIMIT 1')->fetch();
+    $first = db()->query('SELECT id FROM planner_teams WHERE archived_at IS NULL ORDER BY name LIMIT 1')->fetch();
     return $first ? (int) $first['id'] : 0;
 }
 
 function team_or_404(int $teamId): array
 {
-    $stmt = db()->prepare('SELECT id, name, week_length FROM planner_teams WHERE id = ?');
+    $stmt = db()->prepare('SELECT id, name, week_length FROM planner_teams WHERE id = ? AND archived_at IS NULL');
     $stmt->execute([$teamId]);
     $team = $stmt->fetch();
 
@@ -62,5 +62,5 @@ function team_members(int $teamId): array
 
 function all_teams(): array
 {
-    return db()->query('SELECT id, name, week_length FROM planner_teams ORDER BY name')->fetchAll();
+    return db()->query('SELECT id, name, week_length FROM planner_teams WHERE archived_at IS NULL ORDER BY name')->fetchAll();
 }

@@ -69,6 +69,7 @@ function schema_has_column(string $table, string $column): bool
 function current_schema_can_be_baselined(): bool
 {
     return schema_has_column('planner_teams', 'week_length')
+        && schema_has_column('planner_teams', 'archived_at')
         && schema_has_column('planner_plan_entries', 'archived_at')
         && schema_has_column('planner_users', 'is_board_visible');
 }

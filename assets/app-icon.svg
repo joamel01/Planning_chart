@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Work Planner">
-  <rect width="512" height="512" rx="96" fill="#00ABE4"/>
-  <rect x="92" y="122" width="328" height="268" rx="28" fill="#FFFFFF"/>
-  <path d="M92 184h328M184 122v268M276 122v268" fill="none" stroke="#B9DDF0" stroke-width="18"/>
-  <path d="M134 252h50M226 252h50M318 252h50M134 322h50M226 322h50M318 322h50" fill="none" stroke="#123243" stroke-width="24" stroke-linecap="round"/>
+  <rect width="512" height="512" rx="72" fill="#102442"/>
+  <rect x="92" y="122" width="328" height="268" rx="0" fill="#FFFFFF"/>
+  <path d="M92 184h328M184 122v268M276 122v268" fill="none" stroke="#000000" stroke-width="18"/>
+  <path d="M134 252h50M226 252h50M318 252h50M134 322h50M226 322h50M318 322h50" fill="none" stroke="#102442" stroke-width="24" stroke-linecap="square"/>
+  <path d="M92 122h328v34H92z" fill="#FFEA00"/>
 </svg>

@@ -13,7 +13,7 @@ function render_header(string $title, ?array $user = null, string $bodyClass = '
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#00ABE4">
+    <meta name="theme-color" content="#102442">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Work Planner">

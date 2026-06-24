@@ -2,9 +2,12 @@ CREATE TABLE IF NOT EXISTS planner_teams (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
     week_length TINYINT UNSIGNED NOT NULL DEFAULT 5,
+    archived_at TIMESTAMP NULL DEFAULT NULL,
+    archived_by INT UNSIGNED NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE KEY uq_planner_teams_name (name),
+    KEY idx_planner_teams_archived_at (archived_at),
     CONSTRAINT chk_planner_teams_week_length CHECK (week_length IN (5, 7))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -89,3 +92,8 @@ CREATE TABLE IF NOT EXISTS planner_schema_versions (
         FOREIGN KEY (applied_by) REFERENCES planner_users(id)
         ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE planner_teams
+    ADD CONSTRAINT fk_planner_teams_archived_by
+        FOREIGN KEY (archived_by) REFERENCES planner_users(id)
+        ON DELETE SET NULL;

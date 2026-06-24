@@ -26,7 +26,7 @@ if (!can_access_team($user, $teamId)) {
     json_response(['ok' => false, 'message' => 'You cannot access this group.'], 403);
 }
 
-$stmt = db()->prepare('SELECT week_length FROM planner_teams WHERE id = ?');
+$stmt = db()->prepare('SELECT week_length FROM planner_teams WHERE id = ? AND archived_at IS NULL');
 $stmt->execute([$teamId]);
 $team = $stmt->fetch();
 if (!$team) {
