@@ -11,9 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
     $username = trim((string) ($_POST['username'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
+    $remember = isset($_POST['remember_me']) && (string) $_POST['remember_me'] === '1';
 
     try {
-        if (login_user($username, $password)) {
+        if (login_user($username, $password, $remember)) {
             redirect_to('index.php');
         }
 
@@ -37,8 +38,14 @@ render_header('Log in', null, 'auth-page');
             Password
             <input type="password" name="password" autocomplete="current-password" required>
         </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="remember_me" value="1">
+            <span>
+                Remember me for 30 days on this device.
+                <small>We use a necessary session cookie while you are logged in. This option also stores a 30-day cookie for automatic login.</small>
+            </span>
+        </label>
         <button type="submit">Log in</button>
     </form>
-    <p class="muted">Create the first central admin with <code>setup_admin.php</code> after importing the database.</p>
 </section>
 <?php render_footer(); ?>

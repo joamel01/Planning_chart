@@ -369,6 +369,28 @@ label {
     text-transform: uppercase;
 }
 
+.checkbox-label {
+    grid-template-columns: auto 1fr;
+    align-items: flex-start;
+    gap: 10px;
+    text-transform: none;
+}
+
+.checkbox-label input {
+    width: 22px;
+    min-height: 22px;
+    margin: 2px 0 0;
+}
+
+.checkbox-label small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
 input,
 select {
     min-height: 48px;

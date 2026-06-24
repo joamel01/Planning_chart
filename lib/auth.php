@@ -2,11 +2,15 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/remember_me.php';
 
 function current_user(): ?array
 {
     if (empty($_SESSION['user_id'])) {
-        return null;
+        remember_me_login_from_cookie();
+        if (empty($_SESSION['user_id'])) {
+            return null;
+        }
     }
 
     static $user = null;
@@ -31,7 +35,7 @@ function current_user(): ?array
     return $user;
 }
 
-function login_user(string $username, string $password): bool
+function login_user(string $username, string $password, bool $remember = false): bool
 {
     $stmt = db()->prepare(
         'SELECT id, password_hash
@@ -51,11 +55,18 @@ function login_user(string $username, string $password): bool
     unset($_SESSION['csrf_token']);
     csrf_token();
 
+    if ($remember) {
+        create_remember_me_login((int) $user['id']);
+    } else {
+        clear_current_remember_me_login();
+    }
+
     return true;
 }
 
 function logout_user(): void
 {
+    clear_current_remember_me_login();
     $_SESSION = [];
     if (ini_get('session.use_cookies')) {
         $params = session_get_cookie_params();
@@ -166,6 +177,11 @@ function reset_user_password(int $userId, string $password): void
 
     if ($stmt->rowCount() === 0) {
         throw new InvalidArgumentException('The user could not be found.');
+    }
+
+    revoke_user_remember_tokens($userId);
+    if (!empty($_SESSION['user_id']) && (int) $_SESSION['user_id'] === $userId) {
+        clear_remember_me_cookie();
     }
 }
 

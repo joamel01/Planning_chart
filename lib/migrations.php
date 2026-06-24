@@ -66,12 +66,25 @@ function schema_has_column(string $table, string $column): bool
     return (int) $stmt->fetch()['column_count'] > 0;
 }
 
+function schema_has_table(string $table): bool
+{
+    $stmt = db()->prepare(
+        'SELECT COUNT(*) AS table_count
+         FROM information_schema.TABLES
+         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?'
+    );
+    $stmt->execute([$table]);
+
+    return (int) $stmt->fetch()['table_count'] > 0;
+}
+
 function current_schema_can_be_baselined(): bool
 {
     return schema_has_column('planner_teams', 'week_length')
         && schema_has_column('planner_teams', 'archived_at')
         && schema_has_column('planner_plan_entries', 'archived_at')
-        && schema_has_column('planner_users', 'is_board_visible');
+        && schema_has_column('planner_users', 'is_board_visible')
+        && schema_has_table('planner_remember_tokens');
 }
 
 function baseline_current_migrations(int $adminUserId): int

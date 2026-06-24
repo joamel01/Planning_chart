@@ -45,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             $stmt->execute([$userId]);
 
+            revoke_user_remember_tokens($userId);
+
             $stmt = $pdo->prepare(
                 'INSERT INTO planner_audit_log (actor_user_id, team_id, target_user_id, action, details)
                  VALUES (?, ?, ?, ?, ?)'

@@ -51,6 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$teamId]);
 
             $stmt = $pdo->prepare(
+                'DELETE rt
+                 FROM planner_remember_tokens rt
+                 INNER JOIN planner_users u ON u.id = rt.user_id
+                 WHERE u.team_id = ?'
+            );
+            $stmt->execute([$teamId]);
+
+            $stmt = $pdo->prepare(
                 'INSERT INTO planner_audit_log (actor_user_id, team_id, action, details)
                  VALUES (?, ?, ?, ?)'
             );
