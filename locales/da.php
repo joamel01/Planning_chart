@@ -1,0 +1,19 @@
+<?php
+declare(strict_types=1);
+
+return [
+    'code' => 'da',
+    'name' => 'Dansk',
+    'translations' => [
+        'app.name' => 'Arbejdsplanlægger', 'app.short_name' => 'Planlægger', 'app.description' => 'Mobilvenlig ugentlig planlægningstavle til korte fraværs- og afvigelseskoder.', 'language.label' => 'Sprog',
+        'nav.board' => 'Tavle', 'nav.people' => 'Personer', 'nav.admin' => 'Administration', 'nav.logout' => 'Log ud',
+        'admin.overview' => 'Oversigt', 'admin.groups' => 'Grupper', 'admin.new_user' => 'Ny bruger', 'admin.passwords' => 'Adgangskoder', 'admin.archive' => 'Arkiv', 'admin.export' => 'Eksport', 'admin.updates' => 'Opdateringer', 'admin.release' => 'Udgivelse',
+        'group.overview' => 'Oversigt', 'group.add_user' => 'Tilføj bruger', 'group.sort_rows' => 'Sortér rækker', 'group.visibility' => 'Synlighed', 'group.password' => 'Adgangskode',
+        'login.title' => 'Log ind', 'login.username' => 'Brugernavn', 'login.password' => 'Adgangskode', 'login.remember' => 'Husk mig i 30 dage på denne enhed.', 'login.remember_detail' => 'Vi bruger en nødvendig sessionscookie, mens du er logget ind. Dette valg gemmer også en 30-dages cookie til automatisk login.',
+        'board.title' => 'Planlægningstavle', 'board.week' => 'Uge {week}', 'board.today' => 'I dag', 'board.previous_week' => 'Forrige uge', 'board.next_week' => 'Næste uge', 'board.print' => 'Udskriv eller gem som PDF', 'board.no_group' => 'Der findes endnu ingen gruppe', 'board.no_group_detail' => 'Opret en gruppe og brugere, før tavlen bruges.', 'board.no_visible_users' => 'Ingen synlige brugere', 'board.no_visible_users_detail' => 'Tilføj brugere eller vis skjulte brugere, før ugen planlægges.',
+        'save.saving' => 'Gemmer...', 'save.saved' => 'Gemt.', 'save.failed' => 'Cellen kunne ikke gemmes.', 'save.cell_too_long' => 'Cellen må højst indeholde tre tegn.', 'release.warning' => 'Udgivelsesadvarsel:',
+        'button.create' => 'Opret', 'button.save' => 'Gem', 'button.archive' => 'Arkivér', 'button.restore' => 'Gendan', 'button.delete' => 'Slet', 'button.reset' => 'Nulstil', 'button.create_user' => 'Opret bruger', 'button.group_week_csv' => 'CSV for gruppeuge', 'button.initialize_migrations' => 'Initialisér migreringssporing', 'button.apply_migrations' => 'Anvend ventende migreringer',
+        'Active Users' => 'Aktive brugere', 'Name' => 'Navn', 'Username' => 'Brugernavn', 'Role' => 'Rolle', 'Group' => 'Gruppe', 'Board' => 'Tavle', 'User' => 'Bruger', 'Group admin' => 'Gruppeadministrator', 'Create Group' => 'Opret gruppe', 'New group' => 'Ny gruppe', 'Week length' => 'Ugelængde', 'Week' => 'Uge', 'Users' => 'Brugere', 'Archived Groups' => 'Arkiverede grupper', 'Archived Users' => 'Arkiverede brugere', 'Archived at' => 'Arkiveret', 'User Details' => 'Brugeroplysninger', 'Choose group' => 'Vælg gruppe', 'Password' => 'Adgangskode', 'Password Reset' => 'Nulstilling af adgangskode', 'New password' => 'Ny adgangskode', 'Archive Active User' => 'Arkivér aktiv bruger', 'CSV Exports' => 'CSV-eksporter', 'Database Migrations' => 'Databasemigreringer', 'Migration' => 'Migrering', 'Status' => 'Status', 'Applied at' => 'Anvendt', 'Applied' => 'Anvendt', 'Pending' => 'Afventer', 'Release Status' => 'Udgivelsesstatus', 'Check' => 'Kontrol', 'Summary' => 'Opsummering', 'Action' => 'Handling', 'Warning' => 'Advarsel', 'Order' => 'Rækkefølge', 'Board Row Order' => 'Tavlens rækkefølge', 'Board Visibility' => 'Synlighed på tavlen', 'Current password' => 'Nuværende adgangskode', 'Repeat new password' => 'Gentag ny adgangskode', 'Change password' => 'Skift adgangskode', 'Visible' => 'Synlig', 'Hidden' => 'Skjult',
+        'day.mon' => 'MAN', 'day.tue' => 'TIR', 'day.wed' => 'ONS', 'day.thu' => 'TOR', 'day.fri' => 'FRE', 'day.sat' => 'LØR', 'day.sun' => 'SØN',
+    ],
+];
