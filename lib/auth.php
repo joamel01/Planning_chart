@@ -200,8 +200,8 @@ function reset_user_password(int $userId, string $password): void
 function role_label(string $role): string
 {
     return match ($role) {
-        'central_admin' => 'Central admin',
-        'group_admin' => 'Group admin',
-        default => 'User',
+        'central_admin' => t('Central admin'),
+        'group_admin' => t('Group admin'),
+        default => t('User'),
     };
 }

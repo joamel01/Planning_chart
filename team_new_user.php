@@ -32,23 +32,23 @@ render_header('Add User', $user);
 render_group_header($user, $team, $teamId, $canManageGroup, 'Add User', 'Create users in this group');
 ?>
 <section class="panel narrow-panel">
-    <h2>User Details</h2>
+    <h2><?= e(t('User Details')) ?></h2>
     <form method="post" class="form-stack">
         <?= csrf_field() ?>
         <input type="hidden" name="team_id" value="<?= $teamId ?>">
         <label>
-            Name
+            <?= e(t('Name')) ?>
             <input name="name" required>
         </label>
         <label>
-            Username
+            <?= e(t('Username')) ?>
             <input name="username" required>
         </label>
         <label>
-            Password
+            <?= e(t('Password')) ?>
             <input type="password" name="password" minlength="8" required>
         </label>
-        <button type="submit">Add user</button>
+        <button type="submit"><?= e(t('Add user')) ?></button>
     </form>
 </section>
 <?php render_footer(); ?>

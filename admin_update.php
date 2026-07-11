@@ -40,8 +40,8 @@ render_header('Updates', $user);
 render_admin_header($user, 'Updates', 'Track and apply database migrations.');
 ?>
 <section class="panel">
-    <h2>Database Migrations</h2>
-    <p class="muted">Use this page after uploading a new version that contains new SQL files in <code>db/migrations</code>.</p>
+    <h2><?= e(t('Database Migrations')) ?></h2>
+    <p class="muted"><?= e(t('Use this page after uploading a new version that contains new SQL files in db/migrations.')) ?></p>
 
     <?php if ($canBaseline): ?>
         <div class="flash warning">
@@ -61,12 +61,12 @@ render_admin_header($user, 'Updates', 'Track and apply database migrations.');
     <?php endif; ?>
 
     <table class="data-table">
-        <thead><tr><th>Migration</th><th>Status</th><th>Applied at</th></tr></thead>
+        <thead><tr><th><?= e(t('Migration')) ?></th><th><?= e(t('Status')) ?></th><th><?= e(t('Applied at')) ?></th></tr></thead>
         <tbody>
         <?php foreach ($files as $migration => $file): ?>
             <tr>
                 <td><?= e($migration) ?></td>
-                <td><?= array_key_exists($migration, $applied) ? 'Applied' : 'Pending' ?></td>
+                <td><?= array_key_exists($migration, $applied) ? e(t('Applied')) : e(t('Pending')) ?></td>
                 <td><?= e($applied[$migration] ?? '') ?></td>
             </tr>
         <?php endforeach; ?>

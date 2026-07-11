@@ -128,8 +128,8 @@ render_header('Export', $user);
 render_admin_header($user, 'Export', 'Download CSV files for review or backup support.');
 ?>
 <section class="panel">
-    <h2>CSV Exports</h2>
-    <p class="muted">These exports do not include password hashes. Use database backups for full restore capability.</p>
+    <h2><?= e(t('CSV Exports')) ?></h2>
+    <p class="muted"><?= e(t('These exports do not include password hashes. Use database backups for full restore capability.')) ?></p>
 
     <form method="get" class="inline-form export-week-form">
         <input type="hidden" name="download" value="group_week">
@@ -140,14 +140,14 @@ render_admin_header($user, 'Export', 'Download CSV files for review or backup su
                 </option>
             <?php endforeach; ?>
         </select>
-        <input type="date" name="week" value="<?= e($selectedWeek) ?>" aria-label="Week">
+        <input type="date" name="week" value="<?= e($selectedWeek) ?>" aria-label="<?= e(t('Week')) ?>">
         <button type="submit"><?= e(t('button.group_week_csv')) ?></button>
     </form>
 
     <div class="admin-actions export-actions">
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=users')) ?>">Active users CSV</a>
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=archived_users')) ?>">Archived users CSV</a>
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=plan_entries')) ?>">Plan entries CSV</a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=users')) ?>"><?= e(t('Active users CSV')) ?></a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=archived_users')) ?>"><?= e(t('Archived users CSV')) ?></a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=plan_entries')) ?>"><?= e(t('Plan entries CSV')) ?></a>
     </div>
 </section>
 <?php render_footer(); ?>

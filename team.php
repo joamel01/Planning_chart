@@ -41,9 +41,9 @@ render_group_header($user, $team, $teamId, $canManageGroup, 'People', 'Group ove
 </section>
 
 <section class="panel">
-    <h2>Active Users</h2>
+    <h2><?= e(t('Active Users')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Order</th><th>Name</th><th>Username</th><th>Role</th><th>Board</th></tr></thead>
+        <thead><tr><th><?= e(t('Order')) ?></th><th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Board')) ?></th></tr></thead>
         <tbody>
         <?php foreach ($members as $member): ?>
             <tr>
@@ -51,7 +51,7 @@ render_group_header($user, $team, $teamId, $canManageGroup, 'People', 'Group ove
                 <td><?= e($member['name']) ?></td>
                 <td><?= e($member['username']) ?></td>
                 <td><?= e(role_label($member['role'])) ?></td>
-                <td><?= $member['is_board_visible'] ? 'Visible' : 'Hidden' ?></td>
+                <td><?= e($member['is_board_visible'] ? t('Visible') : t('Hidden')) ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

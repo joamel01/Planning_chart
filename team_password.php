@@ -42,23 +42,23 @@ render_header('Change Password', $user);
 render_group_header($user, $team, $teamId, $canManageGroup, 'Change Password', 'Update your own password');
 ?>
 <section class="panel narrow-panel">
-    <h2>Password</h2>
+    <h2><?= e(t('Password')) ?></h2>
     <form method="post" class="form-stack password-form">
         <?= csrf_field() ?>
         <input type="hidden" name="team_id" value="<?= $teamId ?>">
         <label>
-            Current password
+            <?= e(t('Current password')) ?>
             <input type="password" name="current_password" autocomplete="current-password" required>
         </label>
         <label>
-            New password
+            <?= e(t('New password')) ?>
             <input type="password" name="new_password" autocomplete="new-password" minlength="8" required>
         </label>
         <label>
-            Repeat new password
+            <?= e(t('Repeat new password')) ?>
             <input type="password" name="confirm_password" autocomplete="new-password" minlength="8" required>
         </label>
-        <button type="submit">Change password</button>
+        <button type="submit"><?= e(t('Change password')) ?></button>
     </form>
 </section>
 <?php render_footer(); ?>

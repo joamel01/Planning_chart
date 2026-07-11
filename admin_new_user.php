@@ -35,35 +35,35 @@ render_header('New User', $user);
 render_admin_header($user, 'New User', 'Create group admins and users.');
 ?>
 <section class="panel narrow-panel">
-    <h2>User Details</h2>
+    <h2><?= e(t('User Details')) ?></h2>
     <form method="post" class="form-stack">
         <?= csrf_field() ?>
         <label>
-            Group
+            <?= e(t('Group')) ?>
             <select name="team_id" required>
-                <option value="">Choose group</option>
+                <option value=""><?= e(t('Choose group')) ?></option>
                 <?php foreach ($teams as $team): ?>
                     <option value="<?= (int) $team['id'] ?>"><?= e($team['name']) ?></option>
                 <?php endforeach; ?>
             </select>
         </label>
         <label>
-            Role
+            <?= e(t('Role')) ?>
             <select name="role" required>
-                <option value="user">User</option>
-                <option value="group_admin">Group admin</option>
+                <option value="user"><?= e(t('User')) ?></option>
+                <option value="group_admin"><?= e(t('Group admin')) ?></option>
             </select>
         </label>
         <label>
-            Name
+            <?= e(t('Name')) ?>
             <input name="name" required>
         </label>
         <label>
-            Username
+            <?= e(t('Username')) ?>
             <input name="username" required>
         </label>
         <label>
-            Password
+            <?= e(t('Password')) ?>
             <input type="password" name="password" minlength="8" required>
         </label>
         <button type="submit"><?= e(t('button.create_user')) ?></button>

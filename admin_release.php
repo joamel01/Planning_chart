@@ -11,16 +11,16 @@ render_header('Release Checks', $user);
 render_admin_header($user, 'Release Checks', 'Public deployment checks and production hardening reminders.');
 ?>
 <section class="panel">
-    <h2>Release Status</h2>
-    <p class="muted">These checks help catch common public deployment risks. They do not change files or configuration.</p>
+    <h2><?= e(t('Release Status')) ?></h2>
+    <p class="muted"><?= e(t('These checks help catch common public deployment risks. They do not change files or configuration.')) ?></p>
 
     <table class="data-table release-checks">
         <thead>
         <tr>
-            <th>Check</th>
-            <th>Status</th>
-            <th>Summary</th>
-            <th>Action</th>
+            <th><?= e(t('Check')) ?></th>
+            <th><?= e(t('Status')) ?></th>
+            <th><?= e(t('Summary')) ?></th>
+            <th><?= e(t('Action')) ?></th>
         </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@ render_admin_header($user, 'Release Checks', 'Public deployment checks and produ
                 <td><?= e($check['label']) ?></td>
                 <td>
                     <span class="status-badge <?= e($check['status']) ?>">
-                        <?= $check['status'] === 'ok' ? 'OK' : 'Warning' ?>
+                        <?= $check['status'] === 'ok' ? 'OK' : e(t('Warning')) ?>
                     </span>
                 </td>
                 <td><?= e($check['summary']) ?></td>
