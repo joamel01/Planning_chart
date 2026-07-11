@@ -2,14 +2,16 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/lib/bootstrap.php';
+require_once __DIR__ . '/lib/i18n.php';
 
 $basePath = rtrim(path_to(''), '/') . '/';
 
 header('Content-Type: application/manifest+json; charset=utf-8');
 echo json_encode([
-    'name' => 'Work Planner',
-    'short_name' => 'Planner',
-    'description' => 'Mobile-friendly weekly planning board for short absence and deviation codes.',
+    'name' => t('app.name'),
+    'short_name' => t('app.short_name'),
+    'description' => t('app.description'),
+    'lang' => current_locale(),
     'start_url' => path_to('board.php'),
     'scope' => $basePath,
     'display' => 'standalone',

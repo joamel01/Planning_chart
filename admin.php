@@ -86,27 +86,27 @@ render_admin_header($user, 'Central Admin', 'Overview, high-level counts and act
 ?>
 <section class="stats-grid">
     <article class="stat-card">
-        <span>Groups</span>
+        <span><?= e(t('stats.groups')) ?></span>
         <strong><?= (int) $stats['groups_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Active users</span>
+        <span><?= e(t('stats.active_users')) ?></span>
         <strong><?= (int) $stats['active_users_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Group admins</span>
+        <span><?= e(t('stats.group_admins')) ?></span>
         <strong><?= (int) $stats['group_admins_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Visible on board</span>
+        <span><?= e(t('stats.visible_on_board')) ?></span>
         <strong><?= (int) $stats['board_visible_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Hidden from board</span>
+        <span><?= e(t('stats.hidden_from_board')) ?></span>
         <strong><?= (int) $stats['hidden_users_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Archived users</span>
+        <span><?= e(t('stats.archived_users')) ?></span>
         <strong><?= (int) $stats['archived_users_count'] ?></strong>
     </article>
 </section>

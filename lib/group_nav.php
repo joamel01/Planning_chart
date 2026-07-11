@@ -29,23 +29,23 @@ function render_group_actions(array $user, int $teamId, bool $canManageGroup): v
 function group_action_links(array $user, int $teamId, bool $canManageGroup): array
 {
     $currentPage = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
-    $pages = ['team.php' => 'Overview'];
+    $pages = ['team.php' => 'group.overview'];
 
     if ($canManageGroup) {
         $pages += [
-            'team_new_user.php' => 'Add user',
-            'team_sort.php' => 'Sort rows',
-            'team_visibility.php' => 'Visibility',
+            'team_new_user.php' => 'group.add_user',
+            'team_sort.php' => 'group.sort_rows',
+            'team_visibility.php' => 'group.visibility',
         ];
     }
 
-    $pages += ['team_password.php' => 'Password'];
+    $pages += ['team_password.php' => 'group.password'];
 
     $links = [];
     foreach ($pages as $href => $label) {
         $links[] = [
             'href' => group_page_url($href, $user, $teamId),
-            'label' => $label,
+            'label' => t($label),
             'current' => $currentPage === $href,
         ];
     }
@@ -59,8 +59,8 @@ function render_group_header(array $user, array $team, int $teamId, bool $canMan
     ?>
     <section class="section-head">
         <div>
-            <h1><?= e($title) ?></h1>
-            <p class="muted"><?= e($team['name']) ?><?= $subtitle !== '' ? ' - ' . e($subtitle) : '' ?></p>
+            <h1><?= e(t($title)) ?></h1>
+            <p class="muted"><?= e($team['name']) ?><?= $subtitle !== '' ? ' - ' . e(t($subtitle)) : '' ?></p>
         </div>
         <div class="header-actions">
             <?php if ($user['role'] === 'central_admin' && count($teams) > 1): ?>

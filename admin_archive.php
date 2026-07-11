@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $pdo->prepare(
                 'UPDATE planner_users
-                 SET is_active = 0, is_board_visible = 0, archived_at = CURRENT_TIMESTAMP, archived_by = ?
+                 SET is_active = 0, archived_at = CURRENT_TIMESTAMP, archived_by = ?
                  WHERE id = ?'
             );
             $stmt->execute([(int) $user['id'], $userId]);

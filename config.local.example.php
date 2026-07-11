@@ -9,4 +9,5 @@ return [
     'PLANNER_BASE_PATH' => '/planner-en',
     'PLANNER_SESSION_NAME' => 'PLANNER_EN_SESSION',
     'PLANNER_RECOVERY_KEY' => '',
+    'PLANNER_DEFAULT_LOCALE' => 'en',
 ];

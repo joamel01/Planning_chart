@@ -23,19 +23,19 @@ render_group_header($user, $team, $teamId, $canManageGroup, 'People', 'Group ove
 ?>
 <section class="stats-grid group-stats">
     <article class="stat-card">
-        <span>Active users</span>
+        <span><?= e(t('stats.active_users')) ?></span>
         <strong><?= (int) $stats['active_users_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Group admins</span>
+        <span><?= e(t('stats.group_admins')) ?></span>
         <strong><?= (int) $stats['group_admins_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Visible on board</span>
+        <span><?= e(t('stats.visible_on_board')) ?></span>
         <strong><?= (int) $stats['board_visible_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Hidden from board</span>
+        <span><?= e(t('stats.hidden_from_board')) ?></span>
         <strong><?= (int) $stats['hidden_users_count'] ?></strong>
     </article>
 </section>

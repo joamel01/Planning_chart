@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $pdo->prepare(
                 'UPDATE planner_users
-                 SET is_active = 0, is_board_visible = 0, archived_at = COALESCE(archived_at, CURRENT_TIMESTAMP), archived_by = COALESCE(archived_by, ?)
+                 SET is_active = 0, archived_at = COALESCE(archived_at, CURRENT_TIMESTAMP), archived_by = COALESCE(archived_by, ?)
                  WHERE team_id = ? AND role IN (\'group_admin\', \'user\')'
             );
             $stmt->execute([(int) $user['id'], $teamId]);

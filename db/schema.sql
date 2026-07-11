@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS planner_users (
     team_id INT UNSIGNED NULL,
     name VARCHAR(120) NOT NULL,
     username VARCHAR(80) NOT NULL,
+    locale VARCHAR(16) NULL,
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('central_admin', 'group_admin', 'user') NOT NULL DEFAULT 'user',
     sort_order INT NOT NULL DEFAULT 0,

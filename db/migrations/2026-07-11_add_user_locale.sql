@@ -1,0 +1,2 @@
+ALTER TABLE planner_users
+    ADD COLUMN IF NOT EXISTS locale VARCHAR(16) NULL AFTER username;
