@@ -23,21 +23,21 @@ function admin_action_links(): array
 {
     $currentPage = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
     $pages = [
-        'admin.php' => 'Overview',
-        'admin_groups.php' => 'Groups',
-        'admin_new_user.php' => 'New user',
-        'admin_passwords.php' => 'Passwords',
-        'admin_archive.php' => 'Archive',
-        'admin_export.php' => 'Export',
-        'admin_update.php' => 'Updates',
-        'admin_release.php' => 'Release',
+        'admin.php' => 'admin.overview',
+        'admin_groups.php' => 'admin.groups',
+        'admin_new_user.php' => 'admin.new_user',
+        'admin_passwords.php' => 'admin.passwords',
+        'admin_archive.php' => 'admin.archive',
+        'admin_export.php' => 'admin.export',
+        'admin_update.php' => 'admin.updates',
+        'admin_release.php' => 'admin.release',
     ];
 
     $links = [];
     foreach ($pages as $href => $label) {
         $links[] = [
             'href' => path_to($href),
-            'label' => $label,
+            'label' => t($label),
             'current' => $currentPage === $href,
         ];
     }
@@ -50,8 +50,8 @@ function render_admin_header(array $user, string $title, string $subtitle): void
     ?>
     <section class="section-head">
         <div>
-            <h1><?= e($title) ?></h1>
-            <p class="muted"><?= e($subtitle) ?></p>
+            <h1><?= e(t($title)) ?></h1>
+            <p class="muted"><?= e(t($subtitle)) ?></p>
         </div>
         <div class="header-actions">
             <?php render_action_menu(admin_action_links(), 'Admin menu'); ?>

@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^(?:db|lib|tests)(?:/|$) - [F,L]
+    RewriteRule ^(?:db|lib|locales|tests)(?:/|$) - [F,L]
 </IfModule>
 
 <FilesMatch "(^\.|^config(?:\.local(?:\.example)?)?\.php$|^Dockerfile$|^docker-compose\.yml$|^README\.md$|^TODO\.md$|^.*\.(?:sql|dump|csv|bak)$)">

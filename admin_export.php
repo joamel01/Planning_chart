@@ -2,33 +2,10 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/lib/admin_nav.php';
+require_once __DIR__ . '/lib/csv.php';
 require_once __DIR__ . '/lib/team_context.php';
 
 $user = require_admin();
-
-function send_csv(string $filename, array $headers, array $rows): never
-{
-    header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-
-    $output = fopen('php://output', 'wb');
-    if ($output === false) {
-        http_response_code(500);
-        exit('Could not open output stream.');
-    }
-
-    fputcsv($output, $headers);
-    foreach ($rows as $row) {
-        $line = [];
-        foreach ($headers as $header) {
-            $line[] = $row[$header] ?? '';
-        }
-        fputcsv($output, $line);
-    }
-
-    fclose($output);
-    exit;
-}
 
 $download = (string) ($_GET['download'] ?? '');
 
@@ -78,7 +55,7 @@ if ($download === 'group_week') {
     }
 
     $safeGroupName = preg_replace('/[^a-z0-9]+/i', '-', strtolower($team['name'])) ?: 'group';
-    send_csv('work-planner-' . trim($safeGroupName, '-') . '-' . $weekMonday . '.csv', $headers, $rows);
+    send_csv_download('work-planner-' . trim($safeGroupName, '-') . '-' . $weekMonday . '.csv', $headers, $rows);
 }
 
 if ($download === 'users') {
@@ -99,7 +76,7 @@ if ($download === 'users') {
          WHERE u.archived_at IS NULL
          ORDER BY t.name, u.sort_order, u.name"
     )->fetchAll();
-    send_csv('work-planner-users.csv', ['id', 'group_name', 'name', 'username', 'role', 'sort_order', 'is_active', 'is_board_visible', 'created_at', 'updated_at'], $rows);
+    send_csv_download('work-planner-users.csv', ['id', 'group_name', 'name', 'username', 'role', 'sort_order', 'is_active', 'is_board_visible', 'created_at', 'updated_at'], $rows);
 }
 
 if ($download === 'archived_users') {
@@ -118,7 +95,7 @@ if ($download === 'archived_users') {
          WHERE u.archived_at IS NOT NULL
          ORDER BY u.archived_at DESC, u.name"
     )->fetchAll();
-    send_csv('work-planner-archived-users.csv', ['id', 'group_name', 'name', 'username', 'role', 'archived_at', 'archived_by_username'], $rows);
+    send_csv_download('work-planner-archived-users.csv', ['id', 'group_name', 'name', 'username', 'role', 'archived_at', 'archived_by_username'], $rows);
 }
 
 if ($download === 'plan_entries') {
@@ -140,7 +117,7 @@ if ($download === 'plan_entries') {
          LEFT JOIN planner_users updated_by ON updated_by.id = e.updated_by
          ORDER BY t.name, e.week_monday, u.sort_order, u.name, e.day_of_week"
     )->fetchAll();
-    send_csv('work-planner-plan-entries.csv', ['id', 'group_name', 'user_name', 'username', 'week_monday', 'day_of_week', 'value', 'updated_by_username', 'updated_at', 'archived_at'], $rows);
+    send_csv_download('work-planner-plan-entries.csv', ['id', 'group_name', 'user_name', 'username', 'week_monday', 'day_of_week', 'value', 'updated_by_username', 'updated_at', 'archived_at'], $rows);
 }
 
 $teams = all_teams();
@@ -151,8 +128,8 @@ render_header('Export', $user);
 render_admin_header($user, 'Export', 'Download CSV files for review or backup support.');
 ?>
 <section class="panel">
-    <h2>CSV Exports</h2>
-    <p class="muted">These exports do not include password hashes. Use database backups for full restore capability.</p>
+    <h2><?= e(t('CSV Exports')) ?></h2>
+    <p class="muted"><?= e(t('These exports do not include password hashes. Use database backups for full restore capability.')) ?></p>
 
     <form method="get" class="inline-form export-week-form">
         <input type="hidden" name="download" value="group_week">
@@ -163,14 +140,14 @@ render_admin_header($user, 'Export', 'Download CSV files for review or backup su
                 </option>
             <?php endforeach; ?>
         </select>
-        <input type="date" name="week" value="<?= e($selectedWeek) ?>" aria-label="Week">
-        <button type="submit">Group week CSV</button>
+        <input type="date" name="week" value="<?= e($selectedWeek) ?>" aria-label="<?= e(t('Week')) ?>">
+        <button type="submit"><?= e(t('button.group_week_csv')) ?></button>
     </form>
 
     <div class="admin-actions export-actions">
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=users')) ?>">Active users CSV</a>
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=archived_users')) ?>">Archived users CSV</a>
-        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=plan_entries')) ?>">Plan entries CSV</a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=users')) ?>"><?= e(t('Active users CSV')) ?></a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=archived_users')) ?>"><?= e(t('Archived users CSV')) ?></a>
+        <a class="admin-action" href="<?= e(path_to('admin_export.php?download=plan_entries')) ?>"><?= e(t('Plan entries CSV')) ?></a>
     </div>
 </section>
 <?php render_footer(); ?>

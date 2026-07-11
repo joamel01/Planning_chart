@@ -40,7 +40,7 @@ render_header('Sort Rows', $user);
 render_group_header($user, $team, $teamId, $canManageGroup, 'Sort Rows', 'Set the board row order');
 ?>
 <section class="panel narrow-panel">
-    <h2>Board Row Order</h2>
+    <h2><?= e(t('Board Row Order')) ?></h2>
     <form method="post" class="form-stack">
         <?= csrf_field() ?>
         <input type="hidden" name="team_id" value="<?= $teamId ?>">
@@ -52,7 +52,7 @@ render_group_header($user, $team, $teamId, $canManageGroup, 'Sort Rows', 'Set th
                 </label>
             <?php endforeach; ?>
         </div>
-        <button type="submit">Save order</button>
+        <button type="submit"><?= e(t('Save order')) ?></button>
     </form>
 </section>
 <?php render_footer(); ?>

@@ -8,11 +8,11 @@ $user = require_login();
 $teamId = selected_team_id($user);
 
 if ($teamId <= 0) {
-    render_header('Board', $user);
+    render_header('board.title', $user);
     ?>
     <section class="empty-state">
-        <h1>No group exists yet</h1>
-        <p>Create a group and users before using the board.</p>
+        <h1><?= e(t('board.no_group')) ?></h1>
+        <p><?= e(t('board.no_group_detail')) ?></p>
     </section>
     <?php
     render_footer();
@@ -29,7 +29,7 @@ $weekDays = planner_week_days((int) $team['week_length']);
 $monday = monday_for_date($_GET['week'] ?? null);
 $previousWeek = $monday->modify('-7 days')->format('Y-m-d');
 $nextWeek = $monday->modify('+7 days')->format('Y-m-d');
-$weekLabel = 'Week ' . $monday->format('W');
+$weekLabel = t('board.week', ['week' => $monday->format('W')]);
 $members = active_team_members($teamId);
 $teams = $user['role'] === 'central_admin' ? all_teams() : [];
 
@@ -46,11 +46,11 @@ if ($members) {
     }
 }
 
-render_header('Planning Board', $user, 'board-page');
+render_header('board.title', $user, 'board-page');
 ?>
 <section class="section-head print-hidden">
     <div>
-        <h1>Planning Board</h1>
+        <h1><?= e(t('board.title')) ?></h1>
         <p class="muted"><?= e($team['name']) ?>, <?= e($weekLabel) ?>, <?= e($monday->format('Y-m-d')) ?></p>
     </div>
 </section>
@@ -70,18 +70,18 @@ render_header('Planning Board', $user, 'board-page');
                 </select>
             </form>
         <?php endif; ?>
-        <a class="icon-link week-arrow" href="<?= e(path_to('board.php?team_id=' . $teamId . '&week=' . $previousWeek)) ?>" aria-label="Previous week" title="Previous week">
+        <a class="icon-link week-arrow" href="<?= e(path_to('board.php?team_id=' . $teamId . '&week=' . $previousWeek)) ?>" aria-label="<?= e(t('board.previous_week')) ?>" title="<?= e(t('board.previous_week')) ?>">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="M15 18 9 12l6-6"></path>
             </svg>
         </a>
-        <a class="button secondary" href="<?= e(path_to('board.php?team_id=' . $teamId)) ?>">Today</a>
-        <a class="icon-link week-arrow" href="<?= e(path_to('board.php?team_id=' . $teamId . '&week=' . $nextWeek)) ?>" aria-label="Next week" title="Next week">
+        <a class="button secondary" href="<?= e(path_to('board.php?team_id=' . $teamId)) ?>"><?= e(t('board.today')) ?></a>
+        <a class="icon-link week-arrow" href="<?= e(path_to('board.php?team_id=' . $teamId . '&week=' . $nextWeek)) ?>" aria-label="<?= e(t('board.next_week')) ?>" title="<?= e(t('board.next_week')) ?>">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="m9 18 6-6-6-6"></path>
             </svg>
         </a>
-        <button class="icon-link" type="button" onclick="window.print()" aria-label="Print or save as PDF" title="Print or save as PDF">
+        <button class="icon-link" type="button" onclick="window.print()" aria-label="<?= e(t('board.print')) ?>" title="<?= e(t('board.print')) ?>">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="M6 9V3h12v6"></path>
                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
@@ -102,11 +102,15 @@ render_header('Planning Board', $user, 'board-page');
     data-csrf-token="<?= e(csrf_token()) ?>"
     data-team-id="<?= $teamId ?>"
     data-week-monday="<?= e($monday->format('Y-m-d')) ?>"
+    data-cell-too-long-message="<?= e(t('save.cell_too_long')) ?>"
+    data-saving-message="<?= e(t('save.saving')) ?>"
+    data-saved-message="<?= e(t('save.saved')) ?>"
+    data-save-failed-message="<?= e(t('save.failed')) ?>"
 >
     <?php if (!$members): ?>
         <div class="empty-state">
-            <h2>No visible users</h2>
-            <p>Add users or show hidden users before planning the week.</p>
+            <h2><?= e(t('board.no_visible_users')) ?></h2>
+            <p><?= e(t('board.no_visible_users_detail')) ?></p>
         </div>
     <?php else: ?>
         <div class="board-scroll">
@@ -116,7 +120,7 @@ render_header('Planning Board', $user, 'board-page');
                         <th><?= e($weekLabel) ?></th>
                         <?php foreach ($weekDays as $dayNumber => $dayName): ?>
                             <th>
-                                <span><?= e($dayName) ?></span>
+                                <span><?= e(weekday_label($dayName)) ?></span>
                                 <small><?= e($monday->modify('+' . ($dayNumber - 1) . ' days')->format('j/n')) ?></small>
                             </th>
                         <?php endforeach; ?>
@@ -137,7 +141,7 @@ render_header('Planning Board', $user, 'board-page');
                                     autocomplete="off"
                                     data-user-id="<?= (int) $member['id'] ?>"
                                     data-day="<?= $dayNumber ?>"
-                                    aria-label="<?= e($member['name'] . ' ' . $dayName) ?>"
+                                    aria-label="<?= e($member['name'] . ' ' . weekday_label($dayName)) ?>"
                                 >
                             </td>
                         <?php endforeach; ?>

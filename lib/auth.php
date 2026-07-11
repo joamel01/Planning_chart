@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/i18n.php';
 require_once __DIR__ . '/remember_me.php';
 
 function current_user(): ?array
@@ -32,6 +33,13 @@ function current_user(): ?array
         return null;
     }
 
+    if (empty($_SESSION['planner_locale'])) {
+        $locale = saved_user_locale((int) $user['id']);
+        if ($locale !== null) {
+            $_SESSION['planner_locale'] = $locale;
+        }
+    }
+
     return $user;
 }
 
@@ -52,6 +60,10 @@ function login_user(string $username, string $password, bool $remember = false):
 
     session_regenerate_id(true);
     $_SESSION['user_id'] = (int) $user['id'];
+    $locale = saved_user_locale((int) $user['id']);
+    if ($locale !== null) {
+        $_SESSION['planner_locale'] = $locale;
+    }
     unset($_SESSION['csrf_token']);
     csrf_token();
 
@@ -188,8 +200,8 @@ function reset_user_password(int $userId, string $password): void
 function role_label(string $role): string
 {
     return match ($role) {
-        'central_admin' => 'Central admin',
-        'group_admin' => 'Group admin',
-        default => 'User',
+        'central_admin' => t('Central admin'),
+        'group_admin' => t('Group admin'),
+        default => t('User'),
     };
 }

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/i18n.php';
 
 function release_path(string $relativePath): string
 {
@@ -28,38 +29,38 @@ function release_checks(): array
     $checks = [];
 
     $checks[] = [
-        'label' => 'Setup file',
+        'label' => t('Setup file'),
         'status' => release_file_exists('setup_admin.php') ? 'warning' : 'ok',
         'summary' => release_file_exists('setup_admin.php')
-            ? 'setup_admin.php is still present.'
-            : 'setup_admin.php has been removed.',
+            ? t('setup_admin.php is still present.')
+            : t('setup_admin.php has been removed.'),
         'detail' => release_file_exists('setup_admin.php')
-            ? 'Remove this file from public deployments after the first central admin has been created.'
-            : 'The public setup entry point is not available.',
+            ? t('Remove this file from public deployments after the first central admin has been created.')
+            : t('The public setup entry point is not available.'),
     ];
 
     $recoveryFileExists = release_file_exists('admin_recovery.php');
     $recoveryEnabled = $recoveryKey !== '';
     $checks[] = [
-        'label' => 'Recovery file',
+        'label' => t('Recovery file'),
         'status' => $recoveryFileExists ? 'warning' : 'ok',
         'summary' => $recoveryFileExists
-            ? 'admin_recovery.php is still present.'
-            : 'admin_recovery.php has been removed.',
+            ? t('admin_recovery.php is still present.')
+            : t('admin_recovery.php has been removed.'),
         'detail' => $recoveryFileExists
-            ? 'Keep it only while recovering a central admin account, then remove it from the public server.'
-            : 'The public recovery entry point is not available.',
+            ? t('Keep it only while recovering a central admin account, then remove it from the public server.')
+            : t('The public recovery entry point is not available.'),
     ];
 
     $checks[] = [
-        'label' => 'Recovery key',
+        'label' => t('Recovery key'),
         'status' => $recoveryEnabled ? 'warning' : 'ok',
         'summary' => $recoveryEnabled
-            ? 'Recovery mode is enabled.'
-            : 'Recovery mode is disabled.',
+            ? t('Recovery mode is enabled.')
+            : t('Recovery mode is disabled.'),
         'detail' => $recoveryEnabled
-            ? 'Clear PLANNER_RECOVERY_KEY after the recovery task is complete.'
-            : 'No recovery key is configured.',
+            ? t('Clear PLANNER_RECOVERY_KEY after the recovery task is complete.')
+            : t('No recovery key is configured.'),
     ];
 
     $checks[] = [

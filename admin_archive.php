@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $pdo->prepare(
                 'UPDATE planner_users
-                 SET is_active = 0, is_board_visible = 0, archived_at = CURRENT_TIMESTAMP, archived_by = ?
+                 SET is_active = 0, archived_at = CURRENT_TIMESTAMP, archived_by = ?
                  WHERE id = ?'
             );
             $stmt->execute([(int) $user['id'], $userId]);
@@ -150,9 +150,9 @@ render_header('Archive', $user);
 render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete users and their board data.');
 ?>
 <section class="panel">
-    <h2>Archive Active User</h2>
+    <h2><?= e(t('Archive Active User')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Group</th><th></th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Group')) ?></th><th></th></tr></thead>
         <tbody>
         <?php foreach ($activeUsers as $managedUser): ?>
             <tr>
@@ -161,11 +161,11 @@ render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete u
                 <td><?= e(role_label($managedUser['role'])) ?></td>
                 <td><?= e($managedUser['team_name']) ?></td>
                 <td class="actions">
-                    <form method="post" onsubmit="return confirm('Archive this user and their board data?');">
+                    <form method="post" onsubmit="return confirm('<?= e(t('Archive this user and their board data?')) ?>');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="archive_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button class="danger" type="submit">Archive</button>
+                        <button class="danger" type="submit"><?= e(t('button.archive')) ?></button>
                     </form>
                 </td>
             </tr>
@@ -175,9 +175,9 @@ render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete u
 </section>
 
 <section class="panel">
-    <h2>Archived Users</h2>
+    <h2><?= e(t('Archived Users')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Group</th><th>Archived at</th><th></th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Group')) ?></th><th><?= e(t('Archived at')) ?></th><th></th></tr></thead>
         <tbody>
         <?php foreach ($archivedUsers as $managedUser): ?>
             <tr>
@@ -187,17 +187,17 @@ render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete u
                 <td><?= e($managedUser['team_name']) ?></td>
                 <td><?= e($managedUser['archived_at']) ?></td>
                 <td class="actions">
-                    <form method="post" onsubmit="return confirm('Restore this user and their board data?');">
+                    <form method="post" onsubmit="return confirm('<?= e(t('Restore this user and their board data?')) ?>');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="restore_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button type="submit">Restore</button>
+                        <button type="submit"><?= e(t('button.restore')) ?></button>
                     </form>
-                    <form method="post" onsubmit="return confirm('Permanently delete this archived user and all user data? This cannot be undone.');">
+                    <form method="post" onsubmit="return confirm('<?= e(t('Permanently delete this archived user and all user data? This cannot be undone.')) ?>');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="delete_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button class="danger" type="submit">Delete</button>
+                        <button class="danger" type="submit"><?= e(t('button.delete')) ?></button>
                     </form>
                 </td>
             </tr>

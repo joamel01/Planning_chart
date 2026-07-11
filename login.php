@@ -24,28 +24,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-render_header('Log in', null, 'auth-page');
+render_header('login.title', null, 'auth-page');
 ?>
 <section class="auth-card">
-    <h1>Log in</h1>
+    <h1><?= e(t('login.title')) ?></h1>
     <form method="post" class="form-stack">
         <?= csrf_field() ?>
         <label>
-            Username
+            <?= e(t('login.username')) ?>
             <input name="username" autocomplete="username" required>
         </label>
         <label>
-            Password
+            <?= e(t('login.password')) ?>
             <input type="password" name="password" autocomplete="current-password" required>
         </label>
         <label class="checkbox-label">
             <input type="checkbox" name="remember_me" value="1">
             <span>
-                Remember me for 30 days on this device.
-                <small>We use a necessary session cookie while you are logged in. This option also stores a 30-day cookie for automatic login.</small>
+                <?= e(t('login.remember')) ?>
+                <small><?= e(t('login.remember_detail')) ?></small>
             </span>
         </label>
-        <button type="submit">Log in</button>
+        <button type="submit"><?= e(t('login.title')) ?></button>
     </form>
 </section>
 <?php render_footer(); ?>

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $pdo->prepare(
                 'UPDATE planner_users
-                 SET is_active = 0, is_board_visible = 0, archived_at = COALESCE(archived_at, CURRENT_TIMESTAMP), archived_by = COALESCE(archived_by, ?)
+                 SET is_active = 0, archived_at = COALESCE(archived_at, CURRENT_TIMESTAMP), archived_by = COALESCE(archived_by, ?)
                  WHERE team_id = ? AND role IN (\'group_admin\', \'user\')'
             );
             $stmt->execute([(int) $user['id'], $teamId]);
@@ -133,20 +133,20 @@ render_header('Groups', $user);
 render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
 ?>
 <section class="panel">
-    <h2>Create Group</h2>
+    <h2><?= e(t('Create Group')) ?></h2>
     <form method="post" class="inline-form">
         <?= csrf_field() ?>
         <input type="hidden" name="action" value="create_team">
-        <input name="name" placeholder="New group" required>
-        <select name="week_length" aria-label="Week length">
-            <option value="5">5 day week</option>
-            <option value="7">7 day week</option>
+        <input name="name" placeholder="<?= e(t('New group')) ?>" required>
+        <select name="week_length" aria-label="<?= e(t('Week length')) ?>">
+            <option value="5"><?= e(t('5 day week')) ?></option>
+            <option value="7"><?= e(t('7 day week')) ?></option>
         </select>
-        <button type="submit">Create</button>
+        <button type="submit"><?= e(t('button.create')) ?></button>
     </form>
 
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Week</th><th>Active users</th><th></th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Week')) ?></th><th><?= e(t('Active users')) ?></th><th></th></tr></thead>
         <tbody>
         <?php foreach ($teams as $team): ?>
             <tr>
@@ -156,20 +156,20 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="update_week_length">
                         <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
-                        <select name="week_length" aria-label="Week length for <?= e($team['name']) ?>">
-                            <option value="5" <?= (int) $team['week_length'] === 5 ? 'selected' : '' ?>>5 days</option>
-                            <option value="7" <?= (int) $team['week_length'] === 7 ? 'selected' : '' ?>>7 days</option>
+                        <select name="week_length" aria-label="<?= e(t('Week length')) ?> <?= e($team['name']) ?>">
+                            <option value="5" <?= (int) $team['week_length'] === 5 ? 'selected' : '' ?>><?= e(t('5 days')) ?></option>
+                            <option value="7" <?= (int) $team['week_length'] === 7 ? 'selected' : '' ?>><?= e(t('7 days')) ?></option>
                         </select>
-                        <button type="submit">Save</button>
+                        <button type="submit"><?= e(t('button.save')) ?></button>
                     </form>
                 </td>
                 <td><?= (int) $team['users_count'] ?></td>
                 <td class="actions">
-                    <form method="post" onsubmit="return confirm('Archive this group, its users, and its board data?');">
+                    <form method="post" onsubmit="return confirm('<?= e(t('Archive this group, its users, and its board data?')) ?>');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="archive_team">
                         <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
-                        <button class="danger" type="submit">Archive</button>
+                        <button class="danger" type="submit"><?= e(t('button.archive')) ?></button>
                     </form>
                 </td>
             </tr>
@@ -179,9 +179,9 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
 </section>
 
 <section class="panel">
-    <h2>Archived Groups</h2>
+    <h2><?= e(t('Archived Groups')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Week</th><th>Users</th><th>Archived at</th><th></th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Week')) ?></th><th><?= e(t('Users')) ?></th><th><?= e(t('Archived at')) ?></th><th></th></tr></thead>
         <tbody>
         <?php foreach ($archivedTeams as $team): ?>
             <tr>
@@ -190,11 +190,11 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
                 <td><?= (int) $team['users_count'] ?></td>
                 <td><?= e($team['archived_at']) ?></td>
                 <td class="actions">
-                    <form method="post" onsubmit="return confirm('Restore this group, its users, and its board data?');">
+                    <form method="post" onsubmit="return confirm('<?= e(t('Restore this group, its users, and its board data?')) ?>');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="restore_team">
                         <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
-                        <button type="submit">Restore</button>
+                        <button type="submit"><?= e(t('button.restore')) ?></button>
                     </form>
                 </td>
             </tr>

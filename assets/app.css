@@ -81,6 +81,13 @@ select {
     box-shadow: 12px 12px 0 var(--accent);
 }
 
+.auth-card h1 {
+    max-inline-size: 100%;
+    font-size: clamp(30px, 9vw, 56px);
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
 .panel {
     max-width: 100%;
     overflow-x: auto;
@@ -146,6 +153,32 @@ h2 {
     justify-content: flex-end;
 }
 
+.nav-form {
+    margin: 0;
+}
+
+.language-picker {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 12px;
+}
+
+.language-picker select {
+    min-height: 36px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .toolbar,
 .admin-actions {
     justify-content: flex-start;
@@ -182,6 +215,7 @@ button.secondary-action {
 }
 
 .nav > a.icon-link,
+.nav button.icon-link,
 .menu summary.icon-link,
 .toolbar a.icon-link,
 .toolbar button.icon-link {
@@ -275,6 +309,7 @@ button:hover,
 .button.secondary:hover,
 button.secondary-action:hover,
 .nav > a.icon-link:hover,
+.nav button.icon-link:hover,
 .toolbar a.icon-link:hover,
 .toolbar button.icon-link:hover,
 .menu summary.icon-link:hover {
@@ -314,15 +349,18 @@ button:disabled {
 .stat-card {
     display: grid;
     gap: 8px;
+    min-width: 0;
     min-height: 104px;
     padding: 18px;
 }
 
 .stat-card span {
     color: var(--muted);
-    font-size: 13px;
+    font-size: clamp(11px, 1.2vw, 13px);
     font-weight: 900;
-    letter-spacing: .06em;
+    letter-spacing: .04em;
+    overflow-wrap: anywhere;
+    hyphens: auto;
     text-transform: uppercase;
 }
 
@@ -807,6 +845,7 @@ a:focus {
     }
 
     .nav > a.icon-link,
+    .nav button.icon-link,
     .menu summary.icon-link,
     .toolbar a.icon-link,
     .toolbar button.icon-link {

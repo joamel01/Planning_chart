@@ -23,13 +23,13 @@
 
         if ([...value].length > 3) {
             input.classList.add('has-error');
-            setStatus('The cell may contain at most three characters.', 'error');
+            setStatus(shell.dataset.cellTooLongMessage, 'error');
             return;
         }
 
         input.classList.remove('has-error');
         input.classList.add('is-saving');
-        setStatus('Saving...', 'saving');
+        setStatus(shell.dataset.savingMessage, 'saving');
 
         try {
             const response = await fetch(shell.dataset.saveUrl, {
@@ -49,13 +49,13 @@
             const result = await response.json();
 
             if (!response.ok || !result.ok) {
-                throw new Error(result.message || 'Could not save the cell.');
+                throw new Error(result.message || shell.dataset.saveFailedMessage);
             }
 
             input.value = result.value || '';
             input.classList.remove('is-saving');
             input.classList.add('is-saved');
-            setStatus('Saved.', 'saved');
+            setStatus(shell.dataset.savedMessage, 'saved');
             window.setTimeout(() => input.classList.remove('is-saved'), 800);
         } catch (error) {
             input.classList.remove('is-saving');

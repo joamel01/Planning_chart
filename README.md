@@ -262,6 +262,27 @@ codes.
   honors `.htaccess`.
 - The application sends browser security headers for PHP pages.
 
+## Languages
+
+The application discovers language packs automatically from `locales/*.php`.
+English (`locales/en.php`) and Swedish (`locales/sv.php`) are included. Users
+can choose a language from the selector and the choice is saved to their
+account after the `2026-07-11_add_user_locale.sql` migration has been applied.
+
+To add a language, copy `locales/en.php`, rename the file to a valid locale
+code such as `de.php`, and translate its values. The file name and its `code`
+value must match. The application uses the file's `name` value in the language
+selector and falls back to the default language when a translation key is
+missing.
+
+Language files are PHP files and must only be added by a trusted server
+administrator. They are intentionally blocked from direct web access by
+`.htaccess`; do not add language-file upload to the application.
+
+For an existing installation, log in as a central admin and apply the pending
+database migration from **Admin > Updates** before saving a language choice to
+an account.
+
 ## Roadmap
 
 Use GitHub Issues for public feature requests, bug reports, and roadmap

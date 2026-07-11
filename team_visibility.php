@@ -41,16 +41,16 @@ render_header('Visibility', $user);
 render_group_header($user, $team, $teamId, $canManageGroup, 'Visibility', 'Hide or show users on the board');
 ?>
 <section class="panel">
-    <h2>Board Visibility</h2>
+    <h2><?= e(t('Board Visibility')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Board</th><th></th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Board')) ?></th><th></th></tr></thead>
         <tbody>
         <?php foreach ($members as $member): ?>
             <tr>
                 <td><?= e($member['name']) ?></td>
                 <td><?= e($member['username']) ?></td>
                 <td><?= e(role_label($member['role'])) ?></td>
-                <td><?= $member['is_board_visible'] ? 'Visible' : 'Hidden' ?></td>
+                <td><?= e($member['is_board_visible'] ? t('Visible') : t('Hidden')) ?></td>
                 <td class="actions">
                     <form method="post">
                         <?= csrf_field() ?>
@@ -58,7 +58,7 @@ render_group_header($user, $team, $teamId, $canManageGroup, 'Visibility', 'Hide 
                         <input type="hidden" name="user_id" value="<?= (int) $member['id'] ?>">
                         <input type="hidden" name="visible" value="<?= $member['is_board_visible'] ? 0 : 1 ?>">
                         <button class="secondary-action" type="submit">
-                            <?= $member['is_board_visible'] ? 'Hide from board' : 'Show on board' ?>
+                            <?= e($member['is_board_visible'] ? t('Hide from board') : t('Show on board')) ?>
                         </button>
                     </form>
                 </td>

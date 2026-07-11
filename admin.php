@@ -86,37 +86,37 @@ render_admin_header($user, 'Central Admin', 'Overview, high-level counts and act
 ?>
 <section class="stats-grid">
     <article class="stat-card">
-        <span>Groups</span>
+        <span><?= e(t('stats.groups')) ?></span>
         <strong><?= (int) $stats['groups_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Active users</span>
+        <span><?= e(t('stats.active_users')) ?></span>
         <strong><?= (int) $stats['active_users_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Group admins</span>
+        <span><?= e(t('stats.group_admins')) ?></span>
         <strong><?= (int) $stats['group_admins_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Visible on board</span>
+        <span><?= e(t('stats.visible_on_board')) ?></span>
         <strong><?= (int) $stats['board_visible_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Hidden from board</span>
+        <span><?= e(t('stats.hidden_from_board')) ?></span>
         <strong><?= (int) $stats['hidden_users_count'] ?></strong>
     </article>
     <article class="stat-card">
-        <span>Archived users</span>
+        <span><?= e(t('stats.archived_users')) ?></span>
         <strong><?= (int) $stats['archived_users_count'] ?></strong>
     </article>
 </section>
 
 <section class="panel">
-    <h2>Active Users</h2>
+    <h2><?= e(t('Active Users')) ?></h2>
     <table class="data-table">
         <thead>
         <tr>
-            <th>Name</th><th>Username</th><th>Role</th><th>Group</th><th>Board</th>
+            <th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Group')) ?></th><th><?= e(t('Board')) ?></th>
         </tr>
         </thead>
         <tbody>
@@ -130,14 +130,14 @@ render_admin_header($user, 'Central Admin', 'Overview, high-level counts and act
                         <input type="hidden" name="action" value="update_role">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
                         <select name="role" aria-label="Role for <?= e($managedUser['name']) ?>">
-                            <option value="user" <?= $managedUser['role'] === 'user' ? 'selected' : '' ?>>User</option>
-                            <option value="group_admin" <?= $managedUser['role'] === 'group_admin' ? 'selected' : '' ?>>Group admin</option>
+                            <option value="user" <?= $managedUser['role'] === 'user' ? 'selected' : '' ?>><?= e(t('User')) ?></option>
+                            <option value="group_admin" <?= $managedUser['role'] === 'group_admin' ? 'selected' : '' ?>><?= e(t('Group admin')) ?></option>
                         </select>
-                        <button type="submit">Save</button>
+                        <button type="submit"><?= e(t('button.save')) ?></button>
                     </form>
                 </td>
                 <td><?= e($managedUser['team_name']) ?></td>
-                <td><?= $managedUser['is_board_visible'] ? 'Visible' : 'Hidden' ?></td>
+                <td><?= e($managedUser['is_board_visible'] ? t('Visible') : t('Hidden')) ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

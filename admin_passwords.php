@@ -33,9 +33,9 @@ render_header('Passwords', $user);
 render_admin_header($user, 'Passwords', 'Reset passwords for active group users.');
 ?>
 <section class="panel">
-    <h2>Password Reset</h2>
+    <h2><?= e(t('Password Reset')) ?></h2>
     <table class="data-table">
-        <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Group</th><th>New password</th></tr></thead>
+        <thead><tr><th><?= e(t('Name')) ?></th><th><?= e(t('Username')) ?></th><th><?= e(t('Role')) ?></th><th><?= e(t('Group')) ?></th><th><?= e(t('New password')) ?></th></tr></thead>
         <tbody>
         <?php foreach ($users as $managedUser): ?>
             <tr>
@@ -47,8 +47,8 @@ render_admin_header($user, 'Passwords', 'Reset passwords for active group users.
                     <form method="post" class="inline-form compact">
                         <?= csrf_field() ?>
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <input type="password" name="password" placeholder="New password" minlength="8" required>
-                        <button type="submit">Reset</button>
+                        <input type="password" name="password" placeholder="<?= e(t('New password')) ?>" minlength="8" required>
+                        <button type="submit"><?= e(t('button.reset')) ?></button>
                     </form>
                 </td>
             </tr>
