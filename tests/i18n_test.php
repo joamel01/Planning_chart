@@ -18,6 +18,8 @@ assert_i18n(array_key_exists('no', $catalogs), 'Norwegian must be discovered fro
 assert_i18n(array_key_exists('de', $catalogs), 'German must be discovered from locales/de.php.');
 assert_i18n(array_key_exists('fr', $catalogs), 'French must be discovered from locales/fr.php.');
 assert_i18n(array_key_exists('es', $catalogs), 'Spanish must be discovered from locales/es.php.');
+assert_i18n(array_key_exists('fi', $catalogs), 'Finnish must be discovered from locales/fi.php.');
+assert_i18n(array_key_exists('da', $catalogs), 'Danish must be discovered from locales/da.php.');
 assert_i18n($catalogs['sv']['name'] === 'Svenska', 'Language metadata must be loaded from the locale file.');
 
 set_locale('sv');
@@ -30,7 +32,7 @@ assert_i18n(t('unknown.key') === 'unknown.key', 'Unknown keys must have a predic
 set_locale('en');
 assert_i18n(t('nav.logout') === 'Log out', 'English translations must be returned.');
 
-foreach (['pt-BR', 'no', 'de', 'fr', 'es'] as $locale) {
+foreach (['pt-BR', 'no', 'de', 'fr', 'es', 'fi', 'da'] as $locale) {
     set_locale($locale);
     assert_i18n(t('nav.logout') !== 'nav.logout', $locale . ' must provide navigation translations.');
 }
