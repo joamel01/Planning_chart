@@ -66,7 +66,7 @@ render_admin_header($user, 'New User', 'Create group admins and users.');
             Password
             <input type="password" name="password" minlength="8" required>
         </label>
-        <button type="submit">Create user</button>
+        <button type="submit"><?= e(t('button.create_user')) ?></button>
     </form>
 </section>
 <?php render_footer(); ?>

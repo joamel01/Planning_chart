@@ -142,7 +142,7 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
             <option value="5">5 day week</option>
             <option value="7">7 day week</option>
         </select>
-        <button type="submit">Create</button>
+        <button type="submit"><?= e(t('button.create')) ?></button>
     </form>
 
     <table class="data-table">
@@ -160,7 +160,7 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
                             <option value="5" <?= (int) $team['week_length'] === 5 ? 'selected' : '' ?>>5 days</option>
                             <option value="7" <?= (int) $team['week_length'] === 7 ? 'selected' : '' ?>>7 days</option>
                         </select>
-                        <button type="submit">Save</button>
+                        <button type="submit"><?= e(t('button.save')) ?></button>
                     </form>
                 </td>
                 <td><?= (int) $team['users_count'] ?></td>
@@ -169,7 +169,7 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="archive_team">
                         <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
-                        <button class="danger" type="submit">Archive</button>
+                        <button class="danger" type="submit"><?= e(t('button.archive')) ?></button>
                     </form>
                 </td>
             </tr>
@@ -194,7 +194,7 @@ render_admin_header($user, 'Groups', 'Create, archive, and restore groups.');
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="restore_team">
                         <input type="hidden" name="team_id" value="<?= (int) $team['id'] ?>">
-                        <button type="submit">Restore</button>
+                        <button type="submit"><?= e(t('button.restore')) ?></button>
                     </form>
                 </td>
             </tr>

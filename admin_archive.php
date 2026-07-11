@@ -165,7 +165,7 @@ render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete u
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="archive_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button class="danger" type="submit">Archive</button>
+                        <button class="danger" type="submit"><?= e(t('button.archive')) ?></button>
                     </form>
                 </td>
             </tr>
@@ -191,13 +191,13 @@ render_admin_header($user, 'Archive', 'Archive, restore, or permanently delete u
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="restore_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button type="submit">Restore</button>
+                        <button type="submit"><?= e(t('button.restore')) ?></button>
                     </form>
                     <form method="post" onsubmit="return confirm('Permanently delete this archived user and all user data? This cannot be undone.');">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="delete_user">
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
-                        <button class="danger" type="submit">Delete</button>
+                        <button class="danger" type="submit"><?= e(t('button.delete')) ?></button>
                     </form>
                 </td>
             </tr>

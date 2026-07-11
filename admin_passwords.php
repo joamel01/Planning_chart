@@ -48,7 +48,7 @@ render_admin_header($user, 'Passwords', 'Reset passwords for active group users.
                         <?= csrf_field() ?>
                         <input type="hidden" name="user_id" value="<?= (int) $managedUser['id'] ?>">
                         <input type="password" name="password" placeholder="New password" minlength="8" required>
-                        <button type="submit">Reset</button>
+                        <button type="submit"><?= e(t('button.reset')) ?></button>
                     </form>
                 </td>
             </tr>

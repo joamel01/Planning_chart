@@ -133,7 +133,7 @@ render_admin_header($user, 'Central Admin', 'Overview, high-level counts and act
                             <option value="user" <?= $managedUser['role'] === 'user' ? 'selected' : '' ?>>User</option>
                             <option value="group_admin" <?= $managedUser['role'] === 'group_admin' ? 'selected' : '' ?>>Group admin</option>
                         </select>
-                        <button type="submit">Save</button>
+                        <button type="submit"><?= e(t('button.save')) ?></button>
                     </form>
                 </td>
                 <td><?= e($managedUser['team_name']) ?></td>

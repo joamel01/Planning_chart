@@ -50,13 +50,13 @@ render_admin_header($user, 'Updates', 'Track and apply database migrations.');
         <form method="post" class="inline-form">
             <?= csrf_field() ?>
             <input type="hidden" name="action" value="baseline">
-            <button type="submit">Initialize migration tracking</button>
+            <button type="submit"><?= e(t('button.initialize_migrations')) ?></button>
         </form>
     <?php else: ?>
         <form method="post" class="inline-form">
             <?= csrf_field() ?>
             <input type="hidden" name="action" value="migrate">
-            <button type="submit" <?= count($pending) === 0 ? 'disabled' : '' ?>>Apply pending migrations</button>
+            <button type="submit" <?= count($pending) === 0 ? 'disabled' : '' ?>><?= e(t('button.apply_migrations')) ?></button>
         </form>
     <?php endif; ?>
 

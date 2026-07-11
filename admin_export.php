@@ -141,7 +141,7 @@ render_admin_header($user, 'Export', 'Download CSV files for review or backup su
             <?php endforeach; ?>
         </select>
         <input type="date" name="week" value="<?= e($selectedWeek) ?>" aria-label="Week">
-        <button type="submit">Group week CSV</button>
+        <button type="submit"><?= e(t('button.group_week_csv')) ?></button>
     </form>
 
     <div class="admin-actions export-actions">
