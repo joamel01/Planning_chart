@@ -45,10 +45,12 @@ function current_user(): ?array
 
 function login_user(string $username, string $password, bool $remember = false): bool
 {
+    $username = normalize_username($username);
+
     $stmt = db()->prepare(
         'SELECT id, password_hash
          FROM planner_users
-         WHERE username = ? AND is_active = 1 AND archived_at IS NULL
+         WHERE LOWER(username) = LOWER(?) AND is_active = 1 AND archived_at IS NULL
          LIMIT 1'
     );
     $stmt->execute([$username]);
@@ -74,6 +76,15 @@ function login_user(string $username, string $password, bool $remember = false):
     }
 
     return true;
+}
+
+function normalize_username(string $username): string
+{
+    $username = trim($username);
+
+    return function_exists('mb_strtolower')
+        ? mb_strtolower($username, 'UTF-8')
+        : strtolower($username);
 }
 
 function logout_user(): void
@@ -139,7 +150,7 @@ function admin_exists(): bool
 function create_user(?int $teamId, string $name, string $username, string $password, string $role = 'user'): void
 {
     $name = trim($name);
-    $username = trim($username);
+    $username = normalize_username($username);
 
     if ($name === '' || $username === '') {
         throw new InvalidArgumentException('Name and username are required.');
@@ -166,7 +177,7 @@ function create_user(?int $teamId, string $name, string $username, string $passw
 
     $stmt = db()->prepare(
         'INSERT INTO planner_users (team_id, name, username, password_hash, role, sort_order)
-         VALUES (?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, LOWER(?), ?, ?, ?)'
     );
     $stmt->execute([
         $teamId,
