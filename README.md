@@ -261,6 +261,7 @@ codes.
 - The included `.htaccess` blocks common private files and folders when Apache
   honors `.htaccess`.
 - The application sends browser security headers for PHP pages.
+- Usernames are stored in lowercase and are case-insensitive at login; names and passwords keep their original casing.
 
 ## Languages
 
